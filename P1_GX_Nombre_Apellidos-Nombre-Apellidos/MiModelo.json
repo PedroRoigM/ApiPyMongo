@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "nombre": "Pedro",
+        "apellido":"Roig",
+        "edad":20,
+        "dni": "49480836Q"
+    },
+    {
+        "id":2,
+        "nombre": "Jorge",
+        "apellido":"Valero",
+        "edad":21,
+        "dni": "09891232Y"
+    },
+    {
+        "id":3,
+        "nombre": "Ignacio",
+        "apellido":"Arregui",
+        "edad":20,
+        "dni": "09982732G"
+    }
+]
