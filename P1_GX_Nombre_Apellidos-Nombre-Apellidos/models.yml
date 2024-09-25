@@ -1,18 +1,25 @@
-MiModelo:
+Cliente:
   required_vars:
     - nombre
     - apellido
-    - edad
-  admissible_vars:
+    - direccion_facturacion
+    - direccion_envio
+    - fecha_alta
+    - fecha_ultimo_acceso
     - dni
-    - direccion
+  admissible_vars:
     - telefono
-MiOtroModelo:
+    - email
+Producto:
   required_vars:
     - nombre
-    - apellido
-    - edad
-  admissible_vars:
-    - dni
-    - direccion
-    - telefono
+    - codigo
+    - precio
+    - precio_IVA
+    - coste_envio
+    - descuento_fechas
+    - dimensiones
+    - peso
+    - proveedor
+Compra:
+  -

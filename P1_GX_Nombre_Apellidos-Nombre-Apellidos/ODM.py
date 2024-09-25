@@ -9,6 +9,8 @@ from typing import Generator, Any, Self
 from geojson import Point
 import pymongo
 import yaml
+from pymongo.collection import Collection
+from pymongo import command_cursor
 
 def getLocationPoint(address: str) -> Point:
     """ 
@@ -96,7 +98,9 @@ class Model:
         #TODO
         # Realizar las comprabociones y gestiones necesarias
         # antes de la asignacion.
-
+        
+        
+        
         # Asigna todos los valores en kwargs a las variables con 
         # nombre las claves en kwargs
         self.__dict__.update(kwargs) #para actializar todos los valores de golpe
@@ -275,7 +279,9 @@ def initApp(definitions_path: str = "./models.yml", mongodb_uri="mongodb://local
     """
     #TODO
     # Inicializar base de datos
-
+    with open("models.yml", 'r') as modelos:
+        doc=yaml.safe_load(modelos)
+    print(doc)
     #TODO
     # Declarar tantas clases modelo colecciones existan en la base de datos
     # Leer el fichero de definiciones de modelos para obtener las colecciones
@@ -285,7 +291,7 @@ def initApp(definitions_path: str = "./models.yml", mongodb_uri="mongodb://local
     # Ignorar el warning de Pylance sobre MiModelo, es incapaz de detectar
     # que se ha declarado la clase en la linea anterior ya que se hace
     # en tiempo de ejecucion.
-    MiModelo.init_class(db_collection=None, required_vars=None, admissible_vars=None) # type: ignore
+    MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
 
 
 
@@ -324,7 +330,7 @@ if __name__ == '__main__':
     # Hacer pruebas para comprobar que funciona correctamente el modelo
     #TODO
     # Crear modelo
-
+    modelo = Model(nombre="Jose", apellido="Ramos", edad=18)
     # Asignar nuevo valor a variable admitida del objeto 
 
     # Asignar nuevo valor a variable no admitida del objeto 
