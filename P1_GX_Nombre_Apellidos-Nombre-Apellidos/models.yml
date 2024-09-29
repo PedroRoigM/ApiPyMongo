@@ -22,4 +22,13 @@ Producto:
     - peso
     - proveedor
 Compra:
-  -
+  required_vars:
+    - productos
+    - cliente
+    - precio
+    - fecha
+    - direccion
+Proveedor:
+  required_vars:
+    - nombre
+    - direcciones_almacenes

@@ -257,10 +257,21 @@ class ModelCursor:
         Utilizar alive para comprobar si existen mas documentos.
         """
         #TODO
-        pass #No olvidar eliminar esta linea una vez implementado
+        
+        while self.cursor.alive:
+            # Usar next() para obtener el siguiente documento
+            document = next(self.cursor, None)
+
+            # Si el documento no es None, convertirlo en objeto de model_class
+            if document:
+                # Convertimos el documento en una instancia de la clase del modelo
+                yield self.model_class(**document)
+            else:
+                # Si no hay más documentos, terminamos el iterador
+                break
 
 
-def initApp(definitions_path: str = "./models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="abd") -> None:
+def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost", db_name="ProyectoBasesDeDatos") -> None:
     """ 
     Declara las clases que heredan de Model para cada uno de los 
     modelos de las colecciones definidas en definitions_path.
@@ -279,20 +290,30 @@ def initApp(definitions_path: str = "./models.yml", mongodb_uri="mongodb://local
     """
     #TODO
     # Inicializar base de datos
-    with open("models.yml", 'r') as modelos:
+    cliente = pymongo.MongoClient(mongodb_uri, 27017)
+    db=cliente[db_name]
+    
+    ################################################################
+    with open(definitions_path, 'r') as modelos:
         doc=yaml.safe_load(modelos)
-    print(doc)
+    
+    
     #TODO
     # Declarar tantas clases modelo colecciones existan en la base de datos
     # Leer el fichero de definiciones de modelos para obtener las colecciones
     # y las variables admitidas y requeridas para cada una de ellas.
     # Ejemplo de declaracion de modelo para colecion llamada MiModelo
-    globals()["MiModelo"] = type("MiModelo", (Model,),{})
+    
+    for modal_name, modal_def in doc.items():
+        globals()[modal_name] = type(modal_name, (Model,),{})
+        
+        required_vars = modal_def.get("required_vars", [])
+        admissible_vars = modal_def.get("admissible_vars", [])
     # Ignorar el warning de Pylance sobre MiModelo, es incapaz de detectar
     # que se ha declarado la clase en la linea anterior ya que se hace
     # en tiempo de ejecucion.
-    MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
-
+    #MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
+        globals()[modal_name].init_class(db_collection=db[modal_name], required_vars=required_vars, admissible_vars=admissible_vars)
 
 
 # TODO 
