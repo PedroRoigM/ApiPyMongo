@@ -103,7 +103,7 @@ class Model:
         
         # Asigna todos los valores en kwargs a las variables con 
         # nombre las claves en kwargs
-        self.__dict__.update(kwargs) #para actializar todos los valores de golpe
+        self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
         """ Sobreescribe el metodo de asignacion de valores a las 
@@ -126,7 +126,9 @@ class Model:
         modelo.
         """
         #TODO
-        pass #No olvidar eliminar esta linea una vez implementado
+        diccionario = dict({'nombre':'Pedro', 'apellido':'Ramos'})
+        self.db.insert_one(diccionario)
+
 
     def delete(self) -> None:
         """
@@ -209,6 +211,7 @@ class Model:
             admissible_vars : set[str] 
                 Set de variables admitidas por el modelo
         """
+        print(f"Clase ${db_collection}initializada")
         cls.db = db_collection
         cls.required_vars = required_vars
         cls.admissible_vars = admissible_vars
@@ -257,21 +260,11 @@ class ModelCursor:
         Utilizar alive para comprobar si existen mas documentos.
         """
         #TODO
-        
         while self.cursor.alive:
-            # Usar next() para obtener el siguiente documento
-            document = next(self.cursor, None)
-
-            # Si el documento no es None, convertirlo en objeto de model_class
-            if document:
-                # Convertimos el documento en una instancia de la clase del modelo
-                yield self.model_class(**document)
-            else:
-                # Si no hay más documentos, terminamos el iterador
-                break
+            yield self.model(**next(self.cursor))
 
 
-def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost", db_name="ProyectoBasesDeDatos") -> None:
+def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost", db_name="ProyectBasesDeDatos") -> None:
     """ 
     Declara las clases que heredan de Model para cada uno de los 
     modelos de las colecciones definidas en definitions_path.
@@ -291,8 +284,10 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     #TODO
     # Inicializar base de datos
     cliente = pymongo.MongoClient(mongodb_uri, 27017)
-    db=cliente[db_name]
+    db = cliente[db_name]
     
+    
+    #print(db.list_collection_names())
     ################################################################
     with open(definitions_path, 'r') as modelos:
         doc=yaml.safe_load(modelos)
@@ -304,16 +299,25 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     # y las variables admitidas y requeridas para cada una de ellas.
     # Ejemplo de declaracion de modelo para colecion llamada MiModelo
     
-    for modal_name, modal_def in doc.items():
-        globals()[modal_name] = type(modal_name, (Model,),{})
-        
-        required_vars = modal_def.get("required_vars", [])
-        admissible_vars = modal_def.get("admissible_vars", [])
+    # coleccion_cliente = db["Cliente"]
+    # coleccion_cliente.insert_one({"name":"Jose", "edad": 19})
+    
     # Ignorar el warning de Pylance sobre MiModelo, es incapaz de detectar
     # que se ha declarado la clase en la linea anterior ya que se hace
     # en tiempo de ejecucion.
     #MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
-        globals()[modal_name].init_class(db_collection=db[modal_name], required_vars=required_vars, admissible_vars=admissible_vars)
+    for modal_name, modal_def in doc.items():
+        newModel = type(modal_name, (Model,), {})
+        newModel.init_class(db_collection=db[modal_name], 
+                            required_vars=set(modal_def.get("required_vars", [])),
+                            admissible_vars=set(modal_def.get("admissible_vars", []))
+                            )
+        globals()[modal_name] = newModel
+        
+        
+        
+        #globals()[modal_name].init_class(db_collection=db[modal_name], required_vars=required_vars, admissible_vars=admissible_vars)
+    
 
 
 # TODO 
@@ -351,9 +355,10 @@ if __name__ == '__main__':
     # Hacer pruebas para comprobar que funciona correctamente el modelo
     #TODO
     # Crear modelo
-    modelo = Model(nombre="Jose", apellido="Ramos", edad=18)
+    cliente = Cliente(nombre="Jose", apellido="Ramos", edad = 18)
+    
     # Asignar nuevo valor a variable admitida del objeto 
-
+    
     # Asignar nuevo valor a variable no admitida del objeto 
 
     # Guardar
