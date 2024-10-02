@@ -81,6 +81,7 @@ class Model:
     """
     required_vars: set[str]
     admissible_vars: set[str]
+    indexes: set[str]
     db: pymongo.collection.Collection
 
     """Cantidad de argumentos indefinidos: diccionario de string, string | string, diccionario | string, lista"""
@@ -99,10 +100,17 @@ class Model:
         # Realizar las comprabociones y gestiones necesarias
         # antes de la asignacion.
         
-        
-        
         # Asigna todos los valores en kwargs a las variables con 
         # nombre las claves en kwargs
+        missing_vars = self.required_vars - kwargs.keys()
+        
+        if len(missing_vars) != 0:
+            print(f"Valores no recibidos: {missing_vars}")
+            return
+        
+        self.db.create_index(self.indexes.pop(), unique=True)
+            
+        
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -113,7 +121,9 @@ class Model:
         #TODO
         # Realizar las comprabociones y gestiones necesarias
         # antes de la asignacion.
-
+        if 'flags' not in self.__dict__:
+            self.__dict__['flags'] = []
+        self.flags.append(name)
         # Asigna el valor value a la variable name
         self.__dict__[name] = value
         
@@ -126,16 +136,21 @@ class Model:
         modelo.
         """
         #TODO
-        diccionario = dict({'nombre':'Pedro', 'apellido':'Ramos'})
-        self.db.insert_one(diccionario)
-
-
+        ## insert_one si no tiene _id
+        if '_id' not in self.__dict__:
+            self.db.insert_one(self.__dict__)
+        else:
+            if 'flags' in self.__dict__:
+                newValues = {}
+                for key in self.flags:
+                    newValues[key] = self.__dict__[key]
+            self.db.update_one({'_id': self._id}, { "$set": newValues})
     def delete(self) -> None:
         """
         Elimina el modelo de la base de datos
         """
         #TODO
-        pass
+        self.db.delete_one({"_id" : self._id})
     
     @classmethod
     def find(cls, filter: dict[str, str | dict]) -> Any:
@@ -154,8 +169,7 @@ class Model:
                 cursor de modelos
         """ 
         #TODO
-        # cls es el puntero a la clase
-        pass #No olvidar eliminar esta linea una vez implementado
+        return ModelCursor(cls, cls.db.find(filter))
 
     @classmethod
     def aggregate(cls, pipeline: list[dict]) -> pymongo.command_cursor.CommandCursor:
@@ -196,7 +210,7 @@ class Model:
         pass
 
     @classmethod
-    def init_class(cls, db_collection: pymongo.collection.Collection, required_vars: set[str], admissible_vars: set[str]) -> None:
+    def init_class(cls, db_collection: pymongo.collection.Collection, required_vars: set[str], admissible_vars: set[str], indexes: set[str]) -> None:
         """ 
         Inicializa las variables de clase en la inicializacion del sistema.
         En principio nada que hacer aqui salvo que se quieran realizar
@@ -211,11 +225,10 @@ class Model:
             admissible_vars : set[str] 
                 Set de variables admitidas por el modelo
         """
-        print(f"Clase ${db_collection}initializada")
         cls.db = db_collection
         cls.required_vars = required_vars
         cls.admissible_vars = admissible_vars
-        
+        cls.indexes = indexes
 
 class ModelCursor:
     """ 
@@ -261,10 +274,12 @@ class ModelCursor:
         """
         #TODO
         while self.cursor.alive:
-            yield self.model(**next(self.cursor))
+            data = self.cursor.get_data()
+            yield data
+            
 
 
-def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost", db_name="ProyectBasesDeDatos") -> None:
+def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="ProyectBasesDeDatos") -> None:
     """ 
     Declara las clases que heredan de Model para cada uno de los 
     modelos de las colecciones definidas en definitions_path.
@@ -283,7 +298,7 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     """
     #TODO
     # Inicializar base de datos
-    cliente = pymongo.MongoClient(mongodb_uri, 27017)
+    cliente = pymongo.MongoClient(mongodb_uri)
     db = cliente[db_name]
     
     
@@ -306,15 +321,19 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     # que se ha declarado la clase en la linea anterior ya que se hace
     # en tiempo de ejecucion.
     #MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
-    for modal_name, modal_def in doc.items():
-        newModel = type(modal_name, (Model,), {})
-        newModel.init_class(db_collection=db[modal_name], 
-                            required_vars=set(modal_def.get("required_vars", [])),
-                            admissible_vars=set(modal_def.get("admissible_vars", []))
+    for name, vars in doc.items():
+        globals()[name] = type(name, (Model,), {})
+        print(name)
+        print(f"Required vars: {vars.get("required_vars", [])}")
+        print(f"Admissible vars: {vars.get("admissible_vars", [])}\n\n")
+        globals()[name].init_class(db_collection=db[name], 
+                            required_vars=set(vars.get("required_vars", [])),
+                            admissible_vars=set(vars.get("admissible_vars", [])),
+                            indexes=set(vars.get("indexes", []))
                             )
-        globals()[modal_name] = newModel
+
         
-        
+    print("Clases instanciadas")
         
         #globals()[modal_name].init_class(db_collection=db[modal_name], required_vars=required_vars, admissible_vars=admissible_vars)
     
@@ -347,16 +366,30 @@ if __name__ == '__main__':
     initApp()
 
     #Ejemplo
-    m = Model(nombre="Pablo", apellido="Ramos", edad=18)
-    m.save()
-    m.nombre="Pedro"
-    print(m.nombre)
+    #m = Model(nombre="Pablo", apellido="Ramos", edad=18)
+    #m.save()
+    #m.nombre="Pedro"
+    #print(m.nombre)
 
     # Hacer pruebas para comprobar que funciona correctamente el modelo
     #TODO
     # Crear modelo
-    cliente = Cliente(nombre="Jose", apellido="Ramos", edad = 18)
+    #modelo = Model(nombre="Pablo", apellido="Ramos", edad=18)
     
+    ### CREAR INDICES: db.students.createIndex({name:1}, {unique:true})
+    cliente = Cliente(nombre="Pablo", apellido="Ramos", dni="49480836Q")
+    print(cliente.nombre)
+    print(cliente.__dict__)
+    cliente.save()
+    cliente.nombre = "Pedro"
+    print(cliente.__dict__)
+    cliente.save()
+    
+    print(cliente.find({nombre:'Pedro'}).__iter__())
+    #cliente.delete()
+    #diccionario = dict(_id='1',nombre="Jose", apellido="Ramos")
+    #cliente.db.insert_one(diccionario)
+
     # Asignar nuevo valor a variable admitida del objeto 
     
     # Asignar nuevo valor a variable no admitida del objeto 

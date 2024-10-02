@@ -2,18 +2,21 @@ Cliente:
   required_vars:
     - nombre
     - apellido
-    - direccion_facturacion
-    - direccion_envio
-    - fecha_alta
-    - fecha_ultimo_acceso
     - dni
   admissible_vars:
     - telefono
     - email
+    - direccion_facturacion
+    - direccion_envio
+    - fecha_alta
+    - fecha_ultimo_acceso
+  indexes:
+    - dni
 Producto:
   required_vars:
     - nombre
     - codigo
+  admissible_vars:
     - precio
     - precio_IVA
     - coste_envio
@@ -21,14 +24,21 @@ Producto:
     - dimensiones
     - peso
     - proveedor
+  indexes:
+    - codigo
 Compra:
   required_vars:
     - productos
     - cliente
     - precio
+  admissible_vars:
     - fecha
     - direccion
+  indexes:
+    - codigo
 Proveedor:
   required_vars:
     - nombre
+    - direcciones_almacenes
+  indexes:
     - direcciones_almacenes
