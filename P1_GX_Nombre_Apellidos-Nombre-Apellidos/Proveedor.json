@@ -1,0 +1,14 @@
+[
+    {
+        "nombre": "Jose",
+        "direcciones_almacenes": "Calle 1"
+    },
+    {
+        "nombre": "Paco",
+        "direcciones_almacenes": "Calle 2"
+    },
+    {
+        "nombre": "Paula",
+        "direcciones_almacenes": "Calle 3"
+    }
+]

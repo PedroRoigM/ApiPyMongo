@@ -11,6 +11,7 @@ import pymongo
 import yaml
 from pymongo.collection import Collection
 from pymongo import command_cursor
+import json
 
 def getLocationPoint(address: str) -> Point:
     """ 
@@ -34,14 +35,16 @@ def getLocationPoint(address: str) -> Point:
             #TODO
             # Es necesario proporcionar un user_agent para utilizar la API
             # Utilizar un nombre aleatorio para el user_agent
-            location = Nominatim(user_agent="Mi-Nombre-Aleatorio").geocode(address)
+            location = Nominatim(user_agent="Jose").geocode(address)
         except GeocoderTimedOut:
-            # Puede lanzar una excepcion si se supera el tiempo de espera
-            # Volver a intentarlo
+            print(f"Ha ocurrido un error obteniendo tu localizacion [{address}]")
             continue
     #TODO
     # Devolver un GeoJSON de tipo punto con la latitud y longitud almacenadas
+    return Point((location.longitude, location.latitude)) if location else None
 
+def errorFunction(msg: str):
+    print(f"Error: {msg}")
 class Model:
     """ 
     Clase de modelo abstracta
@@ -104,13 +107,18 @@ class Model:
         # nombre las claves en kwargs
         missing_vars = self.required_vars - kwargs.keys()
         
-        if len(missing_vars) != 0:
-            print(f"Valores no recibidos: {missing_vars}")
+        if missing_vars:
+            errorFunction(f"falta información necesaria [{missing_vars}]")
             return
         
-        self.db.create_index(self.indexes.pop(), unique=True)
-            
+        not_admissible_vars = kwargs.keys() - (self.required_vars | self.admissible_vars | self.indexes)
         
+        if not_admissible_vars:
+            errorFunction(f"no se admiten estas entradas [{not_admissible_vars}]")
+        
+        if self.indexes:
+            self.db.create_index(self.indexes.pop(), unique=True)
+            
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -121,6 +129,10 @@ class Model:
         #TODO
         # Realizar las comprabociones y gestiones necesarias
         # antes de la asignacion.
+        
+        if name not in self.admissible_vars and name not in self.required_vars:
+            errorFunction(f"[{name}] no está admitida")
+            return
         if 'flags' not in self.__dict__:
             self.__dict__['flags'] = []
         self.flags.append(name)
@@ -251,16 +263,6 @@ class ModelCursor:
     """
 
     def __init__(self, model_class: Model, cursor: pymongo.cursor.Cursor):
-        """
-        Inicializa el cursor con la clase de modelo y el cursor de pymongo
-
-        Parameters
-        ----------
-            model_class : Model
-                Clase para crear los modelos de los documentos que se iteran.
-            cursor: pymongo.cursor.Cursor
-                Cursor de pymongo a iterar
-        """
         self.model = model_class
         self.cursor = cursor
     
@@ -273,59 +275,30 @@ class ModelCursor:
         Utilizar alive para comprobar si existen mas documentos.
         """
         #TODO
-        while self.cursor.alive:
-            data = self.cursor.get_data()
-            yield data
+        while self.cursor.alive:  # Comprueba si el cursor sigue teniendo elementos
+            try:
+                # Obtiene el siguiente documento del cursor y lo convierte a un objeto modelo
+                document = next(self.cursor)
+                # Convierte el documento en un objeto de modelo y lo devuelve
+                yield self.model(**document)
+            except StopIteration:
+                # Si no hay más documentos, sale del bucle
+                break
             
 
 
 def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="ProyectBasesDeDatos") -> None:
-    """ 
-    Declara las clases que heredan de Model para cada uno de los 
-    modelos de las colecciones definidas en definitions_path.
-    Inicializa las clases de los modelos proporcionando las variables 
-    admitidas y requeridas para cada una de ellas y la conexión a la
-    collecion de la base de datos.
-    
-    Parameters
-    ----------
-        definitions_path : str
-            ruta al fichero de definiciones de modelos
-        mongodb_uri : str
-            uri de conexion a la base de datos
-        db_name : str
-            nombre de la base de datos
-    """
     #TODO
     # Inicializar base de datos
     cliente = pymongo.MongoClient(mongodb_uri)
     db = cliente[db_name]
     
-    
-    #print(db.list_collection_names())
-    ################################################################
     with open(definitions_path, 'r') as modelos:
         doc=yaml.safe_load(modelos)
     
-    
     #TODO
-    # Declarar tantas clases modelo colecciones existan en la base de datos
-    # Leer el fichero de definiciones de modelos para obtener las colecciones
-    # y las variables admitidas y requeridas para cada una de ellas.
-    # Ejemplo de declaracion de modelo para colecion llamada MiModelo
-    
-    # coleccion_cliente = db["Cliente"]
-    # coleccion_cliente.insert_one({"name":"Jose", "edad": 19})
-    
-    # Ignorar el warning de Pylance sobre MiModelo, es incapaz de detectar
-    # que se ha declarado la clase en la linea anterior ya que se hace
-    # en tiempo de ejecucion.
-    #MiModelo.init_class(db_collection=doc["MiModelo"], required_vars=doc["MiModelo"]["required_vars"], admissible_vars=doc["MiModelo"]["admissible_vars"]) # type: ignore
     for name, vars in doc.items():
         globals()[name] = type(name, (Model,), {})
-        print(name)
-        print(f"Required vars: {vars.get("required_vars", [])}")
-        print(f"Admissible vars: {vars.get("admissible_vars", [])}\n\n")
         globals()[name].init_class(db_collection=db[name], 
                             required_vars=set(vars.get("required_vars", [])),
                             admissible_vars=set(vars.get("admissible_vars", [])),
@@ -334,9 +307,7 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
 
         
     print("Clases instanciadas")
-        
-        #globals()[modal_name].init_class(db_collection=db[modal_name], required_vars=required_vars, admissible_vars=admissible_vars)
-    
+
 
 
 # TODO 
@@ -358,55 +329,59 @@ Q3 = []
 
 # Q4: etc.
 
-
+def initData():
+    with open('Clientes.json') as json_file:
+        data = json.load(json_file)
+        for client in data:
+            newClient = Cliente(**client)
+            newClient.save()
+    with open('Compra.json') as json_file:
+        data = json.load(json_file)
+        for compra in data:
+            newCompra = Compra(**compra)
+            newCompra.save()
+    with open('Productos.json') as json_file:
+        data = json.load(json_file)
+        for producto in data:
+            newProduct = Producto(**producto)
+            newProduct.save()
+    with open('Proveedor.json') as json_file:
+        data = json.load(json_file)
+        for prov in data:
+            newProv = Proveedor(**prov)
+            newProv.save()
 if __name__ == '__main__':
-    
-    # Inicializar base de datos y modelos con initApp
-    #TODO
     initApp()
-
-    #Ejemplo
-    #m = Model(nombre="Pablo", apellido="Ramos", edad=18)
-    #m.save()
-    #m.nombre="Pedro"
-    #print(m.nombre)
-
-    # Hacer pruebas para comprobar que funciona correctamente el modelo
-    #TODO
-    # Crear modelo
-    #modelo = Model(nombre="Pablo", apellido="Ramos", edad=18)
-    
-    ### CREAR INDICES: db.students.createIndex({name:1}, {unique:true})
-    cliente = Cliente(nombre="Pablo", apellido="Ramos", dni="49480836Q")
-    print(cliente.nombre)
-    print(cliente.__dict__)
-    cliente.save()
-    cliente.nombre = "Pedro"
-    print(cliente.__dict__)
-    cliente.save()
-    
-    print(cliente.find({nombre:'Pedro'}).__iter__())
-    #cliente.delete()
-    #diccionario = dict(_id='1',nombre="Jose", apellido="Ramos")
-    #cliente.db.insert_one(diccionario)
-
+    #TODO    
+    initData()
+    for search in Cliente.find({"dni":"11223344A"}):
+        client = search
     # Asignar nuevo valor a variable admitida del objeto 
-    
+    client.nombre = "Jose"
     # Asignar nuevo valor a variable no admitida del objeto 
-
+    try:
+        client.segundoApellido = "Gonzalez"
+    except:
+        print("No se ha posido completar la operación")
     # Guardar
-
+    print(client.__dict__)
+    client.save()
     # Asignar nuevo valor a variable admitida del objeto
-
+    client.edad = 21
     # Guardar
-
+    client.save()
     # Buscar nuevo documento con find
+    
+    for modelo in Cliente.find({"nombre":"Jose"}):
+        print(modelo.__dict__)
+        foundModel = modelo
 
     # Obtener primer documento
 
     # Modificar valor de variable admitida
-
+    foundModel.nombre = "Pedro"
     # Guardar
+    foundModel.save()
 
     # PROYECTO 2
     # Ejecutar consultas Q1, Q2, etc. y mostrarlo

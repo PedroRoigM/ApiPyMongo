@@ -1,0 +1,32 @@
+[
+    {
+        "productos": {
+            "nombre": "cereales",
+            "codigo": "11111",
+            "precio": 2.5
+        },
+        "cliente": "Paco",
+        "precio": 2.5,
+        "codigo": 1
+    },
+    {
+        "productos": {
+            "nombre": "leche",
+            "codigo": "11112",
+            "precio": 0.89
+        },
+        "cliente": "Jose",
+        "precio": 0.89,
+        "codigo": 2
+    },
+    {
+        "productos": {
+            "nombre": "gominolas",
+            "codigo": "11113",
+            "precio": 0.2
+        },
+        "cliente": "Paco",
+        "precio": 0.2,
+        "codigo": 3
+    }
+]

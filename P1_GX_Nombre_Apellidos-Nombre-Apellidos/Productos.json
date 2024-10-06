@@ -1,0 +1,17 @@
+[
+    {
+        "nombre": "Cereales",
+        "codigo": "11111",
+        "precio": 2.5
+    },
+    {
+        "nombre": "Leche",
+        "codigo": "11112",
+        "precio": 0.89
+    },
+    {
+        "nombre": "Gominolas",
+        "codigo": "11113",
+        "precio": 0.2
+    }
+]
