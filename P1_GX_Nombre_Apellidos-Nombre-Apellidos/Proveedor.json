@@ -1,14 +1,14 @@
 [
     {
         "nombre": "Jose",
-        "direcciones_almacenes": "Calle 1"
+        "direccion": "University College London"
     },
     {
         "nombre": "Paco",
-        "direcciones_almacenes": "Calle 2"
+        "direccion": "1600 Pennsylvania Ave NW, Washington, DC, USA"
     },
     {
         "nombre": "Paula",
-        "direcciones_almacenes": "Calle 3"
+        "direccion": "1 Infinite Loop, Cupertino, CA, USA"
     }
 ]

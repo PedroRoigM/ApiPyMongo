@@ -28,19 +28,17 @@ def getLocationPoint(address: str) -> Point:
         geojson.Point
             coordenadas del punto de la direccion
     """
+    geolocator = Nominatim(user_agent=f"ODM_ApiPyMongo")
     location = None
+
     while location is None:
         try:
             time.sleep(1)
-            #TODO
-            # Es necesario proporcionar un user_agent para utilizar la API
-            # Utilizar un nombre aleatorio para el user_agent
-            location = Nominatim(user_agent="Jose").geocode(address)
+            location = geolocator.geocode(address)
         except GeocoderTimedOut:
-            print(f"Ha ocurrido un error obteniendo tu localizacion [{address}]")
+            print(f"Error: geocode failed for address {address}. Retrying...")
             continue
-    #TODO
-    # Devolver un GeoJSON de tipo punto con la latitud y longitud almacenadas
+
     return Point((location.longitude, location.latitude)) if location else None
 
 def errorFunction(msg: str):
@@ -117,8 +115,8 @@ class Model:
             errorFunction(f"no se admiten estas entradas [{not_admissible_vars}]")
         
         if self.indexes:
-            self.db.create_index(self.indexes.pop(), unique=True)
-            
+            while self.indexes:
+                self.db.create_index(self.indexes.pop(), unique=True)
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -149,6 +147,14 @@ class Model:
         """
         #TODO
         ## insert_one si no tiene _id
+        if 'direccion' in self.__dict__:
+            point = getLocationPoint(self.__dict__['direccion'])
+            if point:
+                self.__dict__['location'] = {
+                    'type': 'Point',
+                    'coordinates': list(point['coordinates'])
+                }
+        
         if '_id' not in self.__dict__:
             self.db.insert_one(self.__dict__)
         else:
@@ -156,7 +162,8 @@ class Model:
                 newValues = {}
                 for key in self.flags:
                     newValues[key] = self.__dict__[key]
-            self.db.update_one({'_id': self._id}, { "$set": newValues})
+            update_msg = self.db.update_one({'_id': self._id}, { "$set": newValues})
+            print(f"Acknowledged: {update_msg.acknowledged}")
     def delete(self) -> None:
         """
         Elimina el modelo de la base de datos
@@ -376,6 +383,7 @@ if __name__ == '__main__':
         print(modelo.__dict__)
         foundModel = modelo
 
+    
     # Obtener primer documento
 
     # Modificar valor de variable admitida

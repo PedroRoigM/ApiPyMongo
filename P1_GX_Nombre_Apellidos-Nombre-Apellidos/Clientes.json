@@ -1,20 +1,21 @@
 [
     {
         "nombre": "Pedro",
-        "apellido":"Roig",
-        "edad":20,
-        "dni": "11223344A"
+        "apellido": "Roig",
+        "edad": 20,
+        "dni": "11223344A",
+        "direccion": "221B Baker Street, London, UK"
     },
     {
         "nombre": "Jorge",
-        "apellido":"Valero",
-        "edad":21,
+        "apellido": "Valero",
+        "edad": 21,
         "dni": "11223344B"
     },
     {
         "nombre": "Ignacio",
-        "apellido":"Arregui",
-        "edad":20,
+        "apellido": "Arregui",
+        "edad": 20,
         "dni": "11223344C"
     }
 ]

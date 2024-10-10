@@ -4,11 +4,12 @@ Cliente:
     - apellido
     - dni
   admissible_vars:
+    - location
     - edad
     - telefono
     - email
     - direccion_facturacion
-    - direccion_envio
+    - direccion
     - fecha_alta
     - fecha_ultimo_acceso
     - _id
@@ -45,8 +46,7 @@ Compra:
 Proveedor:
   required_vars:
     - nombre
-    - direcciones_almacenes
+    - direccion
   admissible_vars:
     - _id
-  indexes:
-    - direcciones_almacenes
+    - location
