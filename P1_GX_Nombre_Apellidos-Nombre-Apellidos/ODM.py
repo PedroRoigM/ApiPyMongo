@@ -1,5 +1,5 @@
 __author__ = 'Pablo Ramos Criado'
-__students__ = 'Pedro Roig Morera'
+__students__ = 'Pedro Roig && Jorge Valero'
 
 
 from geopy.geocoders import Nominatim # type: ignore
@@ -337,22 +337,22 @@ Q3 = []
 # Q4: etc.
 
 def initData():
-    with open('Clientes.json') as json_file:
+    with open('./Data/Clientes.json') as json_file:
         data = json.load(json_file)
         for client in data:
             newClient = Cliente(**client)
             newClient.save()
-    with open('Compra.json') as json_file:
+    with open('./Data/Compra.json') as json_file:
         data = json.load(json_file)
         for compra in data:
             newCompra = Compra(**compra)
             newCompra.save()
-    with open('Productos.json') as json_file:
+    with open('./Data/Productos.json') as json_file:
         data = json.load(json_file)
         for producto in data:
             newProduct = Producto(**producto)
             newProduct.save()
-    with open('Proveedor.json') as json_file:
+    with open('./Data/Proveedor.json') as json_file:
         data = json.load(json_file)
         for prov in data:
             newProv = Proveedor(**prov)
