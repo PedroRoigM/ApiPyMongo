@@ -28,18 +28,19 @@ def getLocationPoint(address: str) -> Point:
         geojson.Point
             coordenadas del punto de la direccion
     """
-    geolocator = Nominatim(user_agent=f"ODM_ApiPyMongo")
+    geolocator = Nominatim(user_agent=f"ODM_ApiPyMongo") ## Inicializo el geolocalizador con un user_agent
     location = None
 
     while location is None:
         try:
             time.sleep(1)
-            location = geolocator.geocode(address)
+            #TODO
+            location = geolocator.geocode(address) ## Obtengo la localización de la dirección
         except GeocoderTimedOut:
             print(f"Error: geocode failed for address {address}. Retrying...")
             continue
 
-    return Point((location.longitude, location.latitude)) if location else None
+    return Point((location.longitude, location.latitude)) if location else None ## Devuelvo las coordenadas en formato geojson.Point
 
 def errorFunction(msg: str):
     print(f"Error: {msg}")
@@ -82,7 +83,7 @@ class Model:
     """
     required_vars: set[str]
     admissible_vars: set[str]
-    indexes: set[str]
+    indexes: set[str] ## Para crear los indices en la base de datos
     db: pymongo.collection.Collection
 
     """Cantidad de argumentos indefinidos: diccionario de string, string | string, diccionario | string, lista"""
@@ -103,20 +104,21 @@ class Model:
         
         # Asigna todos los valores en kwargs a las variables con 
         # nombre las claves en kwargs
-        missing_vars = self.required_vars - kwargs.keys()
+        missing_vars = self.required_vars - kwargs.keys() ## Compruebo que las variables requeridas estén en kwargs
         
-        if missing_vars:
-            errorFunction(f"falta información necesaria [{missing_vars}]")
-            return
+        if missing_vars: ## Si faltan variables requeridas
+            errorFunction(f"falta información necesaria [{missing_vars}]") ## Muestro un mensaje de error
+            return ## Salgo de la función
         
-        not_admissible_vars = kwargs.keys() - (self.required_vars | self.admissible_vars | self.indexes)
+        not_admissible_vars = kwargs.keys() - (self.required_vars | self.admissible_vars | self.indexes) ## Compruebo que haya variables no admitidas
         
-        if not_admissible_vars:
-            errorFunction(f"no se admiten estas entradas [{not_admissible_vars}]")
+        if not_admissible_vars: ## Si hay variables no admitidas
+            errorFunction(f"no se admiten estas entradas [{not_admissible_vars}]") ## Muestro un mensaje de error
+            return ## Salgo de la función
         
-        if self.indexes:
-            while self.indexes:
-                self.db.create_index(self.indexes.pop(), unique=True)
+        if self.indexes: ## Si hay índices
+            while self.indexes: ## Mientras haya índices
+                self.db.create_index(self.indexes.pop(), unique=True) ## Creo un índice único en la base de datos
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -128,12 +130,12 @@ class Model:
         # Realizar las comprabociones y gestiones necesarias
         # antes de la asignacion.
         
-        if name not in self.admissible_vars and name not in self.required_vars:
-            errorFunction(f"[{name}] no está admitida")
-            return
-        if 'flags' not in self.__dict__:
-            self.__dict__['flags'] = []
-        self.flags.append(name)
+        if name not in self.admissible_vars and name not in self.required_vars: ## Si la variable no está admitida
+            errorFunction(f"[{name}] no está admitida") ## Muestro un mensaje de error
+            return ## Salgo de la función
+        if 'flags' not in self.__dict__: ## Si la variable falgs no está inicializada
+            self.__dict__['flags'] = [] ## Inicializo la variable flags como una lista vacía
+        self.flags.append(name) ## Añado la variable a la lista de flags
         # Asigna el valor value a la variable name
         self.__dict__[name] = value
         
@@ -162,8 +164,10 @@ class Model:
                 newValues = {}
                 for key in self.flags:
                     newValues[key] = self.__dict__[key]
-            update_msg = self.db.update_one({'_id': self._id}, { "$set": newValues})
-            print(f"Acknowledged: {update_msg.acknowledged}")
+            
+                update_msg = self.db.update_one({'_id': self._id}, { "$set": newValues})
+                print(f"Acknowledged: {update_msg.acknowledged}")
+                self.__dict__.pop('flags') ## Elimino la variable flags ya que ya se han actualizado las variables
     def delete(self) -> None:
         """
         Elimina el modelo de la base de datos
@@ -188,7 +192,7 @@ class Model:
                 cursor de modelos
         """ 
         #TODO
-        return ModelCursor(cls, cls.db.find(filter))
+        return ModelCursor(cls, cls.db.find(filter)) ## Devuelvo un cursor de modelos ModelCursor
 
     @classmethod
     def aggregate(cls, pipeline: list[dict]) -> pymongo.command_cursor.CommandCursor:
@@ -297,20 +301,20 @@ class ModelCursor:
 def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="ProyectBasesDeDatos") -> None:
     #TODO
     # Inicializar base de datos
-    cliente = pymongo.MongoClient(mongodb_uri)
-    db = cliente[db_name]
+    cliente = pymongo.MongoClient(mongodb_uri) ## Inicializo el cliente de MongoDB
+    db = cliente[db_name] ## Inicializo la base de datos
     
-    with open(definitions_path, 'r') as modelos:
+    with open(definitions_path, 'r') as modelos: ## Abro el archivo yml con los modelos
         doc=yaml.safe_load(modelos)
     
     #TODO
-    for name, vars in doc.items():
-        globals()[name] = type(name, (Model,), {})
+    for name, vars in doc.items(): ## Recorro los modelos
+        globals()[name] = type(name, (Model,), {}) ## Inicializo una clase global con el nombre del modelo
         globals()[name].init_class(db_collection=db[name], 
                             required_vars=set(vars.get("required_vars", [])),
                             admissible_vars=set(vars.get("admissible_vars", [])),
                             indexes=set(vars.get("indexes", []))
-                            )
+                            ) ## Inicializo la clase con los valores del yml
 
         
     print("Clases instanciadas")
@@ -336,40 +340,41 @@ Q3 = []
 
 # Q4: etc.
 
-def initData():
+def initData(): ## Inicializo los datos de los modelos
     with open('./Data/Clientes.json') as json_file:
         data = json.load(json_file)
         for client in data:
-            newClient = Cliente(**client)
+            newClient = Cliente(**client) # type: ignore
             newClient.save()
     with open('./Data/Compra.json') as json_file:
         data = json.load(json_file)
         for compra in data:
-            newCompra = Compra(**compra)
+            newCompra = Compra(**compra) # type: ignore
             newCompra.save()
     with open('./Data/Productos.json') as json_file:
         data = json.load(json_file)
         for producto in data:
-            newProduct = Producto(**producto)
+            newProduct = Producto(**producto) # type: ignore
             newProduct.save()
     with open('./Data/Proveedor.json') as json_file:
         data = json.load(json_file)
         for prov in data:
-            newProv = Proveedor(**prov)
+            newProv = Proveedor(**prov) # type: ignore
             newProv.save()
 if __name__ == '__main__':
-    initApp()
+    initApp() ## Inicializo la aplicación
     #TODO    
-    initData()
-    for search in Cliente.find({"dni":"11223344A"}):
+    initData() ## Inicializo los datos
+    
+    ## Busco un cliente con el dni 11223344A
+    for search in Cliente.find({"dni":"11223344A"}):  # type: ignore 
         client = search
     # Asignar nuevo valor a variable admitida del objeto 
     client.nombre = "Jose"
     # Asignar nuevo valor a variable no admitida del objeto 
-    try:
-        client.segundoApellido = "Gonzalez"
-    except:
-        print("No se ha posido completar la operación")
+
+    client.segundoApellido = "Gonzalez" ## Intento añadir una variable no admitida,
+                                        ## no me va a dejar y va a mostrar un mensaje de error
     # Guardar
     print(client.__dict__)
     client.save()
@@ -379,15 +384,17 @@ if __name__ == '__main__':
     client.save()
     # Buscar nuevo documento con find
     
-    for modelo in Cliente.find({"nombre":"Jose"}):
+    for modelo in Cliente.find({"nombre":"Jose"}): # type: ignore
         print(modelo.__dict__)
         foundModel = modelo
 
     
     # Obtener primer documento
-
+    for modelo in Cliente.find({}): # type: ignore
+        firstDocument = modelo
+        break
     # Modificar valor de variable admitida
-    foundModel.nombre = "Pedro"
+    foundModel.edad = 22
     # Guardar
     foundModel.save()
 
