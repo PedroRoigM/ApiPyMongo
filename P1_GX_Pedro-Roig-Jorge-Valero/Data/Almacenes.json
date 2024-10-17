@@ -1,0 +1,152 @@
+[
+    {
+        "nombre": "Almacén Central Madrid",
+        "capacidad": 10000,
+        "inventario": [
+            {
+                "producto_id": "prod1",
+                "cantidad": 500
+            },
+            {
+                "producto_id": "prod2",
+                "cantidad": 300
+            }
+        ],
+        "direccion": "Trafalgar Square, London"
+    },
+    {
+        "nombre": "Almacén Principal Barcelona",
+        "capacidad": 8000,
+        "inventario": [
+            {
+                "producto_id": "prod3",
+                "cantidad": 400
+            },
+            {
+                "producto_id": "prod4",
+                "cantidad": 250
+            }
+        ],
+        "direccion": "The Shard, 32 London Bridge Street, London"
+    },
+    {
+        "nombre": "Almacén Valencia",
+        "capacidad": 6000,
+        "inventario": [
+            {
+                "producto_id": "prod5",
+                "cantidad": 200
+            },
+            {
+                "producto_id": "prod6",
+                "cantidad": 350
+            }
+        ],
+        "direccion": "St. Paul’s Cathedral, London"
+    },
+    {
+        "nombre": "Almacén Sevilla",
+        "capacidad": 5000,
+        "inventario": [
+            {
+                "producto_id": "prod7",
+                "cantidad": 150
+            },
+            {
+                "producto_id": "prod8",
+                "cantidad": 300
+            }
+        ],
+        "direccion": "Manchester Town Hall, Albert Square, Manchester"
+    },
+    {
+        "nombre": "Almacén Bilbao",
+        "capacidad": 4000,
+        "inventario": [
+            {
+                "producto_id": "prod9",
+                "cantidad": 100
+            },
+            {
+                "producto_id": "prod10",
+                "cantidad": 200
+            }
+        ],
+        "direccion": "Big Ben, Westminster, London"
+    },
+    {
+        "nombre": "Almacén Málaga",
+        "capacidad": 3500,
+        "inventario": [
+            {
+                "producto_id": "prod1",
+                "cantidad": 250
+            },
+            {
+                "producto_id": "prod3",
+                "cantidad": 180
+            }
+        ],
+        "direccion": "Stonehenge, Salisbury"
+    },
+    {
+        "nombre": "Almacén Zaragoza",
+        "capacidad": 3000,
+        "inventario": [
+            {
+                "producto_id": "prod2",
+                "cantidad": 220
+            },
+            {
+                "producto_id": "prod5",
+                "cantidad": 150
+            }
+        ],
+        "direccion": "Victoria and Albert Museum, Cromwell Road, London"
+    },
+    {
+        "nombre": "Almacén Murcia",
+        "capacidad": 2800,
+        "inventario": [
+            {
+                "producto_id": "prod4",
+                "cantidad": 130
+            },
+            {
+                "producto_id": "prod7",
+                "cantidad": 190
+            }
+        ],
+        "direccion": "Cardiff Castle, Castle St, Cardiff"
+    },
+    {
+        "nombre": "Almacén Palma de Mallorca",
+        "capacidad": 2500,
+        "inventario": [
+            {
+                "producto_id": "prod6",
+                "cantidad": 110
+            },
+            {
+                "producto_id": "prod9",
+                "cantidad": 160
+            }
+        ],
+        "direccion": "Windsor Castle, Windsor"
+    },
+    {
+        "nombre": "Almacén Las Palmas",
+        "capacidad": 2200,
+        "inventario": [
+            {
+                "producto_id": "prod8",
+                "cantidad": 90
+            },
+            {
+                "producto_id": "prod10",
+                "cantidad": 140
+            }
+        ],
+        "direccion": "Hyde Park, London"
+    }
+]

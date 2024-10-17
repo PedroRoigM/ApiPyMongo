@@ -1,32 +1,190 @@
 [
     {
-        "productos": {
-            "nombre": "cereales",
-            "codigo": "11111",
-            "precio": 2.5
-        },
-        "cliente": "Paco",
-        "precio": 2.5,
-        "codigo": 1
+        "compra_id": "comp1",
+        "cliente": "Ana Martínez",
+        "fecha_compra": "2024-10-16T10:30:00Z",
+        "productos": [
+            {
+                "producto_id": "Camiseta manga corta",
+                "cantidad": 2,
+                "precio_unitario": 19.99
+            },
+            {
+                "producto_id": "Pantalón vaquero",
+                "cantidad": 1,
+                "precio_unitario": 49.99
+            }
+        ],
+        "monto_total": 89.97,
+        "almacen_id": "alm1",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -3.7038,
+                40.4168
+            ]
+        }
     },
     {
-        "productos": {
-            "nombre": "leche",
-            "codigo": "11112",
-            "precio": 0.89
-        },
-        "cliente": "Jose",
-        "precio": 0.89,
-        "codigo": 2
+        "compra_id": "comp2",
+        "cliente": "Pedro Sánchez",
+        "fecha_compra": "2024-10-17T15:45:00Z",
+        "productos": [
+            {
+                "producto_id": "Pantalón vaquero",
+                "cantidad": 2,
+                "precio_unitario": 49.99
+            }
+        ],
+        "monto_total": 99.98,
+        "almacen_id": "alm2",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                2.1734,
+                41.3851
+            ]
+        }
     },
     {
-        "productos": {
-            "nombre": "gominolas",
-            "codigo": "11113",
-            "precio": 0.2
-        },
-        "cliente": "Paco",
-        "precio": 0.2,
-        "codigo": 3
+        "compra_id": "comp3",
+        "cliente": "Pedro Sánchez",
+        "fecha_compra": "2024-10-18T09:15:00Z",
+        "productos": [
+            {
+                "producto_id": "Vestido de fiesta",
+                "cantidad": 1,
+                "precio_unitario": 89.99
+            }
+        ],
+        "monto_total": 89.99,
+        "almacen_id": "alm3",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -0.3763,
+                39.4699
+            ]
+        }
+    },
+    {
+        "compra_id": "comp4",
+        "cliente": "Javier López",
+        "fecha_compra": "2024-10-19T14:20:00Z",
+        "productos": [
+            {
+                "producto_id": "Zapatos deportivos",
+                "cantidad": 1,
+                "precio_unitario": 79.99
+            },
+            {
+                "producto_id": "Gorra de béisbol",
+                "cantidad": 1,
+                "precio_unitario": 24.99
+            }
+        ],
+        "monto_total": 104.98,
+        "almacen_id": "alm4",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -5.9845,
+                37.3891
+            ]
+        }
+    },
+    {
+        "compra_id": "comp5",
+        "cliente": "Carmen Ruiz",
+        "fecha_compra": "2024-10-20T11:30:00Z",
+        "productos": [
+            {
+                "producto_id": "Chaqueta de cuero",
+                "cantidad": 1,
+                "precio_unitario": 199.99
+            }
+        ],
+        "monto_total": 199.99,
+        "almacen_id": "alm1",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -3.7038,
+                40.4168
+            ]
+        }
+    },
+    {
+        "compra_id": "comp6",
+        "cliente": "Miguel Álvarez",
+        "fecha_compra": "2024-10-21T16:45:00Z",
+        "productos": [
+            {
+                "producto_id": "Blusa de seda",
+                "cantidad": 2,
+                "precio_unitario": 59.99
+            },
+            {
+                "producto_id": "Bufanda de lana",
+                "cantidad": 1,
+                "precio_unitario": 34.99
+            }
+        ],
+        "monto_total": 154.97,
+        "almacen_id": "alm2",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                2.1734,
+                41.3851
+            ]
+        }
+    },
+    {
+        "compra_id": "comp7",
+        "cliente": "Isabel Moreno",
+        "fecha_compra": "2024-10-22T10:00:00Z",
+        "productos": [
+            {
+                "producto_id": "Reloj de pulsera",
+                "cantidad": 1,
+                "precio_unitario": 129.99
+            }
+        ],
+        "monto_total": 129.99,
+        "almacen_id": "alm5",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -2.935,
+                43.263
+            ]
+        }
+    },
+    {
+        "compra_id": "comp8",
+        "cliente": "Isabel Moreno",
+        "fecha_compra": "2024-10-23T13:15:00Z",
+        "productos": [
+            {
+                "producto_id": "Bolso de mano",
+                "cantidad": 1,
+                "precio_unitario": 45.99
+            },
+            {
+                "producto_id": "Camiseta manga corta",
+                "cantidad": 3,
+                "precio_unitario": 19.99
+            }
+        ],
+        "monto_total": 105.96,
+        "almacen_id": "alm6",
+        "destino": {
+            "type": "Point",
+            "coordinates": [
+                -4.4214,
+                36.7213
+            ]
+        }
     }
 ]

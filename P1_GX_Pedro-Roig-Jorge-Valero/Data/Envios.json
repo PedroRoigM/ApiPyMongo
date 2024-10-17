@@ -1,0 +1,104 @@
+[
+    {
+        "envio_id": "001",
+        "almacen": "Almacén Central Madrid",
+        "fecha_envio": "2024-09-25",
+        "productos": [
+            {
+                "nombre": "Camiseta manga corta",
+                "descripcion": "Camiseta de algodón",
+                "precio": 19.99
+            },
+            {
+                "nombre": "Pantalón vaquero",
+                "descripcion": "Pantalón de mezclilla",
+                "precio": 49.99
+            }
+        ]
+    },
+    {
+        "envio_id": "002",
+        "almacen": "Almacén Principal Barcelona",
+        "fecha_envio": "2024-08-30",
+        "productos": [
+            {
+                "nombre": "Vestido de fiesta",
+                "descripcion": "Vestido largo de seda",
+                "precio": 89.99
+            },
+            {
+                "nombre": "Chaqueta de cuero",
+                "descripcion": "Chaqueta de cuero genuino",
+                "precio": 199.99
+            }
+        ]
+    },
+    {
+        "envio_id": "003",
+        "almacen": "Almacén Valencia",
+        "fecha_envio": "2024-07-15",
+        "productos": [
+            {
+                "nombre": "Blusa de seda",
+                "descripcion": "Blusa elegante de seda",
+                "precio": 59.99
+            },
+            {
+                "nombre": "Camiseta manga corta elegante",
+                "descripcion": "Camiseta de seda para eventos",
+                "precio": 49.99
+            }
+        ]
+    },
+    {
+        "envio_id": "004",
+        "almacen": "Almacén Sevilla",
+        "fecha_envio": "2024-11-02",
+        "productos": [
+            {
+                "nombre": "Zapatos deportivos",
+                "descripcion": "Zapatillas para correr",
+                "precio": 79.99
+            },
+            {
+                "nombre": "Camiseta manga corta deportiva",
+                "descripcion": "Camiseta técnica para correr",
+                "precio": 29.99
+            }
+        ]
+    },
+    {
+        "envio_id": "005",
+        "almacen": "Almacén Bilbao",
+        "fecha_envio": "2024-06-18",
+        "productos": [
+            {
+                "nombre": "Gorra de béisbol",
+                "descripcion": "Gorra ajustable",
+                "precio": 24.99
+            },
+            {
+                "nombre": "Reloj de pulsera",
+                "descripcion": "Reloj analógico de acero",
+                "precio": 129.99
+            }
+        ]
+    },
+    {
+        "envio_id": "006",
+        "almacen": "Almacén Málaga",
+        "fecha_envio": "2024-12-20",
+        "productos": [
+            {
+                "nombre": "Bolso de mano",
+                "descripcion": "Bolso de cuero sintético",
+                "precio": 45.99
+            },
+            {
+                "nombre": "Chaqueta de cuero",
+                "descripcion": "Chaqueta de cuero genuino",
+                "precio": 199.99
+            }
+        ]
+    }
+]

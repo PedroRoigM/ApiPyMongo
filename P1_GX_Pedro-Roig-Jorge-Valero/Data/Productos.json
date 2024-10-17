@@ -1,17 +1,167 @@
 [
     {
-        "nombre": "Cereales",
-        "codigo": "11111",
-        "precio": 2.5
+        "nombre": "Camiseta manga corta",
+        "descripcion": "Camiseta de algodón",
+        "precio": 19.99,
+        "peso": 0.2,
+        "volumen": 0.001,
+        "proveedor": [
+            "Modas Paqui",
+            "Textiles García",
+            "Elegancia S.L."
+        ]
     },
     {
-        "nombre": "Leche",
-        "codigo": "11112",
-        "precio": 0.89
+        "nombre": "Pantalón vaquero",
+        "descripcion": "Pantalón de mezclilla",
+        "precio": 49.99,
+        "peso": 0.5,
+        "volumen": 0.003,
+        "proveedor": [
+            "Modas Paqui",
+            "Textiles García",
+            "Elegancia S.L."
+        ]
     },
     {
-        "nombre": "Gominolas",
-        "codigo": "11113",
-        "precio": 0.2
+        "nombre": "Vestido de fiesta",
+        "descripcion": "Vestido largo de seda",
+        "precio": 89.99,
+        "peso": 0.3,
+        "volumen": 0.002,
+        "proveedor": [
+            "Modas Paqui",
+            "Textiles García",
+            "Elegancia S.L."
+        ]
+    },
+    {
+        "nombre": "Zapatos deportivos",
+        "descripcion": "Zapatillas para correr",
+        "precio": 79.99,
+        "peso": 0.8,
+        "volumen": 0.004,
+        "proveedor": [
+            "Deportes Rápidos",
+            "Cueros Naturales",
+            "Moda Juvenil"
+        ]
+    },
+    {
+        "nombre": "Chaqueta de cuero",
+        "descripcion": "Chaqueta de cuero genuino",
+        "precio": 199.99,
+        "peso": 1.5,
+        "volumen": 0.008,
+        "proveedor": [
+            "Cueros Naturales",
+            "Modas Paqui",
+            "Textiles García"
+        ]
+    },
+    {
+        "nombre": "Blusa de seda",
+        "descripcion": "Blusa elegante de seda",
+        "precio": 59.99,
+        "peso": 0.15,
+        "volumen": 0.0009,
+        "proveedor": [
+            "Modas Paqui",
+            "Textiles García",
+            "Elegancia S.L."
+        ]
+    },
+    {
+        "nombre": "Gorra de béisbol",
+        "descripcion": "Gorra ajustable",
+        "precio": 24.99,
+        "peso": 0.1,
+        "volumen": 0.0005,
+        "proveedor": [
+            "Moda Juvenil",
+            "Accesorios Chic",
+            "Tejidos del Sur"
+        ]
+    },
+    {
+        "nombre": "Bufanda de lana",
+        "descripcion": "Bufanda tejida a mano",
+        "precio": 34.99,
+        "peso": 0.2,
+        "volumen": 0.001,
+        "proveedor": [
+            "Tejidos del Sur",
+            "Moda Juvenil",
+            "Elegancia S.L."
+        ]
+    },
+    {
+        "nombre": "Reloj de pulsera",
+        "descripcion": "Reloj analógico de acero",
+        "precio": 129.99,
+        "peso": 0.1,
+        "volumen": 0.0002,
+        "proveedor": [
+            "Accesorios Chic",
+            "Relojes Precisos",
+            "Modas Paqui"
+        ]
+    },
+    {
+        "nombre": "Bolso de mano",
+        "descripcion": "Bolso de cuero sintético",
+        "precio": 45.99,
+        "peso": 0.4,
+        "volumen": 0.002,
+        "proveedor": [
+            "Cueros Naturales",
+            "Bolsos y Más",
+            "Accesorios Chic"
+        ]
+    },
+    {
+        "nombre": "Camiseta manga corta básica",
+        "descripcion": "Camiseta casual de algodón",
+        "precio": 15.99,
+        "peso": 0.18,
+        "volumen": 0.001,
+        "proveedor": [
+            "Modas Paqui",
+            "Textiles García"
+        ]
+    },
+    {
+        "nombre": "Camiseta manga corta deportiva",
+        "descripcion": "Camiseta técnica para correr",
+        "precio": 29.99,
+        "peso": 0.22,
+        "volumen": 0.0012,
+        "proveedor": [
+            "Deportes Rápidos",
+            "Modas Paqui"
+        ]
+    },
+    {
+        "nombre": "Camiseta manga corta estampada",
+        "descripcion": "Camiseta con diseño gráfico",
+        "precio": 22.99,
+        "peso": 0.19,
+        "volumen": 0.001,
+        "proveedor": [
+            "Textiles García",
+            "Modas Paqui",
+            "Moda Juvenil"
+        ]
+    },
+    {
+        "nombre": "Camiseta manga corta elegante",
+        "descripcion": "Camiseta de seda para eventos",
+        "precio": 49.99,
+        "peso": 0.17,
+        "volumen": 0.0009,
+        "proveedor": [
+            "Elegancia S.L.",
+            "Modas Paqui"
+        ]
     }
 ]

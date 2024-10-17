@@ -12,6 +12,7 @@ import yaml
 from pymongo.collection import Collection
 from pymongo import command_cursor
 import json
+import unicodedata
 
 def getLocationPoint(address: str) -> Point:
     """ 
@@ -42,6 +43,7 @@ def getLocationPoint(address: str) -> Point:
 
     return Point((location.longitude, location.latitude)) if location else None ## Devuelvo las coordenadas en formato geojson.Point
 
+    
 def errorFunction(msg: str):
     print(f"Error: {msg}")
 class Model:
@@ -298,7 +300,7 @@ class ModelCursor:
             
 
 
-def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="ProyectBasesDeDatos") -> None:
+def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localhost:27017/", db_name="ProyectBasesDeDatos", ext_globals=globals()) -> None:
     #TODO
     # Inicializar base de datos
     cliente = pymongo.MongoClient(mongodb_uri) ## Inicializo el cliente de MongoDB
@@ -309,8 +311,8 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     
     #TODO
     for name, vars in doc.items(): ## Recorro los modelos
-        globals()[name] = type(name, (Model,), {}) ## Inicializo una clase global con el nombre del modelo
-        globals()[name].init_class(db_collection=db[name], 
+        ext_globals[name] = type(name, (Model,), {}) ## Inicializo una clase global con el nombre del modelo
+        ext_globals[name].init_class(db_collection=db[name], 
                             required_vars=set(vars.get("required_vars", [])),
                             admissible_vars=set(vars.get("admissible_vars", [])),
                             indexes=set(vars.get("indexes", []))
@@ -319,85 +321,82 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
         
     print("Clases instanciadas")
 
-
-
-# TODO 
-# PROYECTO 2
-# Almacenar los pipelines de las consultas en Q1, Q2, etc. 
-# EJEMPLO
-# Q0: Listado de todas las personas con nombre determinado
-nombre = "Quijote"
-Q0 = [{'$match': {'nombre': nombre}}]
-
-# Q1: 
-Q2 = []
-
-# Q2: 
-Q2 = []
-
-# Q3:
-Q3 = []
-
-# Q4: etc.
-
 def initData(): ## Inicializo los datos de los modelos
-    with open('./Data/Clientes.json') as json_file:
+    with open('./Data/Clientes.json', encoding='utf-8') as json_file:
         data = json.load(json_file)
         for client in data:
             newClient = Cliente(**client) # type: ignore
             newClient.save()
-    with open('./Data/Compra.json') as json_file:
+    with open('./Data/Compra.json', encoding='utf-8') as json_file:
         data = json.load(json_file)
         for compra in data:
             newCompra = Compra(**compra) # type: ignore
             newCompra.save()
-    with open('./Data/Productos.json') as json_file:
+    with open('./Data/Productos.json', encoding='utf-8') as json_file:
         data = json.load(json_file)
         for producto in data:
             newProduct = Producto(**producto) # type: ignore
             newProduct.save()
-    with open('./Data/Proveedor.json') as json_file:
+    with open('./Data/Proveedor.json', encoding='utf-8') as json_file:
         data = json.load(json_file)
         for prov in data:
             newProv = Proveedor(**prov) # type: ignore
             newProv.save()
+    with open('./Data/Almacenes.json', encoding='utf-8') as json_file:
+        data = json.load(json_file)
+        for almacen in data:
+            newAlmacen = Almacen(**almacen) # type: ignore
+            newAlmacen.save()
+    with open('./Data/Envios.json', encoding='utf-8') as json_file:
+        data = json.load(json_file)
+        for envio in data:
+            newEnvio = Envio(**envio) #type: ignore
+            newEnvio.save()
 if __name__ == '__main__':
     initApp() ## Inicializo la aplicación
+    
     #TODO    
     initData() ## Inicializo los datos
-    
+    print("End initData")
     ## Busco un cliente con el dni 11223344A
-    for search in Cliente.find({"dni":"11223344A"}):  # type: ignore 
+    client = None
+    for search in Cliente.find({"email":"juan@example.com"}):  # type: ignore 
         client = search
     # Asignar nuevo valor a variable admitida del objeto 
-    client.nombre = "Jose"
-    # Asignar nuevo valor a variable no admitida del objeto 
+    if client:
+    
+        client.nombre = "Jose"
+        # Asignar nuevo valor a variable no admitida del objeto 
 
-    client.segundoApellido = "Gonzalez" ## Intento añadir una variable no admitida,
-                                        ## no me va a dejar y va a mostrar un mensaje de error
-    # Guardar
-    print(client.__dict__)
-    client.save()
-    # Asignar nuevo valor a variable admitida del objeto
-    client.edad = 21
-    # Guardar
-    client.save()
+        client.segundoApellido = "Gonzalez" ## Intento añadir una variable no admitida,
+                                            ## no me va a dejar y va a mostrar un mensaje de error
+        # Guardar
+        print(client.__dict__)
+        client.save()
+        # Asignar nuevo valor a variable admitida del objeto
+        client.edad = 21
+        # Guardar
+        client.save()
+    else:
+        print("Cliente no encontrado")
     # Buscar nuevo documento con find
     
-    for modelo in Cliente.find({"nombre":"Jose"}): # type: ignore
+    foundModel = None
+    for modelo in Cliente.find({"nombre":"Carmen Ruiz"}): # type: ignore
         print(modelo.__dict__)
         foundModel = modelo
-
     
     # Obtener primer documento
     for modelo in Cliente.find({}): # type: ignore
         firstDocument = modelo
         break
-    # Modificar valor de variable admitida
-    foundModel.edad = 22
-    # Guardar
-    foundModel.save()
-
+    if foundModel:
+        # Modificar valor de variable admitida
+        foundModel.edad = 22
+        # Guardar
+        foundModel.save()
+    else:
+        print("Cliente no encontrado")
     # PROYECTO 2
     # Ejecutar consultas Q1, Q2, etc. y mostrarlo
     #TODO

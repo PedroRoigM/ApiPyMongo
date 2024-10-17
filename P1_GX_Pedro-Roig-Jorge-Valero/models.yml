@@ -1,52 +1,77 @@
 Cliente:
   required_vars:
     - nombre
-    - apellido
-    - dni
+    - email
   admissible_vars:
-    - location
+    - _id
     - edad
     - telefono
-    - email
-    - direccion_facturacion
     - direccion
-    - fecha_alta
-    - fecha_ultimo_acceso
-    - _id
+    - fecha_registro
+    - location
   indexes:
-    - dni
+    - email
+
 Producto:
   required_vars:
     - nombre
-    - codigo
     - precio
-    - codigo
-  admissible_vars:
-    - precio_IVA
-    - coste_envio
-    - descuento_fechas
-    - dimensiones
-    - peso
     - proveedor
+  admissible_vars:
     - _id
+    - descripcion
+    - peso
+    - volumen
+    - categoria
+    - stock
   indexes:
-    - codigo
+    - nombre
+
+Proveedor:
+  required_vars:
+    - nombre
+    - email
+  admissible_vars:
+    - _id
+    - telefono
+    - direccion
+    - productos_ofrecidos
+  indexes:
+    - email
+
 Compra:
   required_vars:
-    - productos
+    - compra_id
     - cliente
-    - precio
-    - codigo
+    - fecha_compra
+    - productos
+    - monto_total
   admissible_vars:
-    - fecha
-    - direccion
     - _id
+    - almacen_id
+    - destino
+    - estado_envio
+    - fecha_envio
   indexes:
-    - codigo
-Proveedor:
+    - compra_id
+
+Almacen:
   required_vars:
     - nombre
     - direccion
   admissible_vars:
     - _id
+    - capacidad
+    - inventario
     - location
+  indexes:
+    - direccion
+
+Envio:
+  required_vars:
+    - envio_id
+    - fecha_envio
+    - almacen
+    - productos
+  indexes:
+    - envio_id
