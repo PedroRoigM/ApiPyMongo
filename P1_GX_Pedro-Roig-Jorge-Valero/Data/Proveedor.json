@@ -2,51 +2,61 @@
     {
         "nombre": "Modas Paqui",
         "email": "paqui@modas.com",
-        "telefono": "+34 123 456 789"
+        "telefono": "+34 123 456 789",
+        "facturacion": 0
     },
     {
         "nombre": "Textiles García",
         "email": "info@textilesgarcia.com",
-        "telefono": "+34 987 654 321"
+        "telefono": "+34 987 654 321",
+        "facturacion": 0
     },
     {
         "nombre": "Elegancia S.L.",
         "email": "ventas@elegancia.es",
-        "telefono": "+34 555 123 456"
+        "telefono": "+34 555 123 456",
+        "facturacion": 0
     },
     {
         "nombre": "Deportes Rápidos",
         "email": "pedidos@deportesrapidos.com",
-        "telefono": "+34 333 789 012"
+        "telefono": "+34 333 789 012",
+        "facturacion": 0
     },
     {
         "nombre": "Cueros Naturales",
         "email": "info@cuerosnaturales.es",
-        "telefono": "+34 777 345 678"
+        "telefono": "+34 777 345 678",
+        "facturacion": 0
     },
     {
         "nombre": "Moda Juvenil",
         "email": "contacto@modajuvenil.com",
-        "telefono": "+34 222 987 654"
+        "telefono": "+34 222 987 654",
+        "facturacion": 0
     },
     {
         "nombre": "Accesorios Chic",
         "email": "ventas@accesorioschic.es",
-        "telefono": "+34 666 234 567"
+        "telefono": "+34 666 234 567",
+        "facturacion": 0
     },
     {
         "nombre": "Tejidos del Sur",
         "email": "pedidos@tejidosdelsur.com",
-        "telefono": "+34 888 901 234"
+        "telefono": "+34 888 901 234",
+        "facturacion": 0
     },
     {
         "nombre": "Relojes Precisos",
         "email": "info@relojesprecisos.es",
-        "telefono": "+34 444 567 890"
+        "telefono": "+34 444 567 890",
+        "facturacion": 0
     },
     {
         "nombre": "Bolsos y Más",
         "email": "ventas@bolsosymas.com",
-        "telefono": "+34 999 012 345"
+        "telefono": "+34 999 012 345",
+        "facturacion": 0
     }
 ]
