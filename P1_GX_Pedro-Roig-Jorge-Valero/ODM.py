@@ -401,14 +401,6 @@ if __name__ == '__main__':
     else:
         print("Cliente no encontrado")
         
-    # Obtener primer documento
-    for modelo in Compra.find({}): # type: ignore
-        firstDocument = modelo
-        break
-    if firstDocument:
-        print(type(firstDocument.__dict__["fecha_compra"]))
-    else:
-        print("Cliente no encontrado")
     # PROYECTO 2
     # Ejecutar consultas Q1, Q2, etc. y mostrarlo
     #TODO

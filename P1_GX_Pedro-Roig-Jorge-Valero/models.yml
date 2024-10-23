@@ -50,7 +50,7 @@ Compra:
   admissible_vars:
     - _id
     - almacen_id
-    - destino
+    - direccion
     - estado_envio
     - fecha_envio
   indexes:

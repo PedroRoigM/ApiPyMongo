@@ -17,13 +17,7 @@
         ],
         "monto_total": 89.97,
         "almacen_id": "alm1",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -3.7038,
-                40.4168
-            ]
-        }
+        "direccion": "Trafalgar Square, London"
     },
     {
         "compra_id": "comp2",
@@ -38,13 +32,7 @@
         ],
         "monto_total": 99.98,
         "almacen_id": "alm2",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                2.1734,
-                41.3851
-            ]
-        }
+        "direccion": "Birmingham City Centre, Birmingham"
     },
     {
         "compra_id": "comp3",
@@ -59,13 +47,7 @@
         ],
         "monto_total": 89.99,
         "almacen_id": "alm3",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -0.3763,
-                39.4699
-            ]
-        }
+        "direccion": "Market Street, Manchester"
     },
     {
         "compra_id": "comp4",
@@ -85,13 +67,7 @@
         ],
         "monto_total": 104.98,
         "almacen_id": "alm4",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -5.9845,
-                37.3891
-            ]
-        }
+        "direccion": "Royal Mile, Edinburgh"
     },
     {
         "compra_id": "comp5",
@@ -106,13 +82,7 @@
         ],
         "monto_total": 199.99,
         "almacen_id": "alm1",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -3.7038,
-                40.4168
-            ]
-        }
+        "direccion": "Bold Street, Liverpool"
     },
     {
         "compra_id": "comp6",
@@ -132,13 +102,7 @@
         ],
         "monto_total": 154.97,
         "almacen_id": "alm2",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                2.1734,
-                41.3851
-            ]
-        }
+        "direccion": "Oxford Street, London"
     },
     {
         "compra_id": "comp7",
@@ -153,13 +117,7 @@
         ],
         "monto_total": 129.99,
         "almacen_id": "alm5",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -2.935,
-                43.263
-            ]
-        }
+        "direccion": "Coventry Street, London"
     },
     {
         "compra_id": "comp8",
@@ -179,12 +137,6 @@
         ],
         "monto_total": 105.96,
         "almacen_id": "alm6",
-        "destino": {
-            "type": "Point",
-            "coordinates": [
-                -4.4214,
-                36.7213
-            ]
-        }
+        "direccion": "Leicester Square, London"
     }
 ]
