@@ -2,7 +2,7 @@
     {
         "compra_id": "comp1",
         "cliente": "Ana Martínez",
-        "fecha_compra": "2024-10-16T10:30:00Z",
+        "fecha_compra": "2024-10-16",
         "productos": [
             {
                 "producto_id": "Camiseta manga corta",
@@ -28,7 +28,7 @@
     {
         "compra_id": "comp2",
         "cliente": "Pedro Sánchez",
-        "fecha_compra": "2024-10-17T15:45:00Z",
+        "fecha_compra": "2024-10-17",
         "productos": [
             {
                 "producto_id": "Pantalón vaquero",
@@ -49,7 +49,7 @@
     {
         "compra_id": "comp3",
         "cliente": "Pedro Sánchez",
-        "fecha_compra": "2024-10-18T09:15:00Z",
+        "fecha_compra": "2024-10-18",
         "productos": [
             {
                 "producto_id": "Vestido de fiesta",
@@ -70,7 +70,7 @@
     {
         "compra_id": "comp4",
         "cliente": "Javier López",
-        "fecha_compra": "2024-10-19T14:20:00Z",
+        "fecha_compra": "2024-10-19",
         "productos": [
             {
                 "producto_id": "Zapatos deportivos",
@@ -96,7 +96,7 @@
     {
         "compra_id": "comp5",
         "cliente": "Carmen Ruiz",
-        "fecha_compra": "2024-10-20T11:30:00Z",
+        "fecha_compra": "2024-10-20",
         "productos": [
             {
                 "producto_id": "Chaqueta de cuero",
@@ -117,7 +117,7 @@
     {
         "compra_id": "comp6",
         "cliente": "Miguel Álvarez",
-        "fecha_compra": "2024-10-21T16:45:00Z",
+        "fecha_compra": "2024-10-21",
         "productos": [
             {
                 "producto_id": "Blusa de seda",
@@ -143,7 +143,7 @@
     {
         "compra_id": "comp7",
         "cliente": "Isabel Moreno",
-        "fecha_compra": "2024-10-22T10:00:00Z",
+        "fecha_compra": "2024-10-22",
         "productos": [
             {
                 "producto_id": "Reloj de pulsera",
@@ -164,7 +164,7 @@
     {
         "compra_id": "comp8",
         "cliente": "Isabel Moreno",
-        "fecha_compra": "2024-10-23T13:15:00Z",
+        "fecha_compra": "2024-10-23",
         "productos": [
             {
                 "producto_id": "Bolso de mano",

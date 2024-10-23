@@ -100,5 +100,243 @@
                 "precio": 199.99
             }
         ]
+    },
+    {
+        "envio_id": "007",
+        "almacen": "Almacén Central Madrid",
+        "fecha_envio": "2024-09-15",
+        "productos": [
+            {
+                "nombre": "Camiseta de tirantes",
+                "descripcion": "Camiseta ligera para verano",
+                "precio": 15.99
+            },
+            {
+                "nombre": "Pantalones cortos",
+                "descripcion": "Pantalones cortos de algodón",
+                "precio": 34.99
+            }
+        ]
+    },
+    {
+        "envio_id": "008",
+        "almacen": "Almacén Principal Barcelona",
+        "fecha_envio": "2024-10-05",
+        "productos": [
+            {
+                "nombre": "Sudadera",
+                "descripcion": "Sudadera con capucha",
+                "precio": 39.99
+            },
+            {
+                "nombre": "Zapatos de cuero",
+                "descripcion": "Zapatos elegantes de cuero",
+                "precio": 89.99
+            }
+        ]
+    },
+    {
+        "envio_id": "009",
+        "almacen": "Almacén Sevilla",
+        "fecha_envio": "2024-10-10",
+        "productos": [
+            {
+                "nombre": "Camiseta de deporte",
+                "descripcion": "Camiseta transpirable para deportes",
+                "precio": 24.99
+            },
+            {
+                "nombre": "Pantalones de chándal",
+                "descripcion": "Pantalones cómodos de chándal",
+                "precio": 39.99
+            }
+        ]
+    },
+    {
+        "envio_id": "010",
+        "almacen": "Almacén Bilbao",
+        "fecha_envio": "2024-11-15",
+        "productos": [
+            {
+                "nombre": "Botines de cuero",
+                "descripcion": "Botines elegantes para invierno",
+                "precio": 129.99
+            },
+            {
+                "nombre": "Bufanda de lana",
+                "descripcion": "Bufanda cálida de lana",
+                "precio": 34.99
+            }
+        ]
+    },
+    {
+        "envio_id": "011",
+        "almacen": "Almacén Málaga",
+        "fecha_envio": "2024-11-20",
+        "productos": [
+            {
+                "nombre": "Camiseta de manga larga",
+                "descripcion": "Camiseta para el clima frío",
+                "precio": 29.99
+            },
+            {
+                "nombre": "Chaqueta impermeable",
+                "descripcion": "Chaqueta para días lluviosos",
+                "precio": 79.99
+            }
+        ]
+    },
+    {
+        "envio_id": "012",
+        "almacen": "Almacén Valencia",
+        "fecha_envio": "2024-12-01",
+        "productos": [
+            {
+                "nombre": "Guantes de cuero",
+                "descripcion": "Guantes elegantes para invierno",
+                "precio": 49.99
+            },
+            {
+                "nombre": "Gorro de lana",
+                "descripcion": "Gorro cálido para invierno",
+                "precio": 19.99
+            }
+        ]
+    },
+    {
+        "envio_id": "013",
+        "almacen": "Almacén Central Madrid",
+        "fecha_envio": "2024-12-15",
+        "productos": [
+            {
+                "nombre": "Camiseta de Navidad",
+                "descripcion": "Camiseta festiva para las fiestas",
+                "precio": 24.99
+            },
+            {
+                "nombre": "Pantalones térmicos",
+                "descripcion": "Pantalones térmicos para el invierno",
+                "precio": 59.99
+            }
+        ]
+    },
+    {
+        "envio_id": "014",
+        "almacen": "Almacén Principal Barcelona",
+        "fecha_envio": "2024-12-18",
+        "productos": [
+            {
+                "nombre": "Chaqueta de invierno",
+                "descripcion": "Chaqueta cálida para invierno",
+                "precio": 149.99
+            },
+            {
+                "nombre": "Botas de nieve",
+                "descripcion": "Botas para la nieve",
+                "precio": 99.99
+            }
+        ]
+    },
+    {
+        "envio_id": "015",
+        "almacen": "Almacén Sevilla",
+        "fecha_envio": "2024-12-25",
+        "productos": [
+            {
+                "nombre": "Calcetines de lana",
+                "descripcion": "Calcetines cálidos para invierno",
+                "precio": 9.99
+            },
+            {
+                "nombre": "Bufanda de invierno",
+                "descripcion": "Bufanda gruesa para el frío",
+                "precio": 29.99
+            }
+        ]
+    },
+    {
+        "envio_id": "016",
+        "almacen": "Almacén Bilbao",
+        "fecha_envio": "2024-11-30",
+        "productos": [
+            {
+                "nombre": "Zapatos de senderismo",
+                "descripcion": "Zapatos cómodos para el campo",
+                "precio": 89.99
+            },
+            {
+                "nombre": "Gorra de protección solar",
+                "descripcion": "Gorra para días soleados",
+                "precio": 14.99
+            }
+        ]
+    },
+    {
+        "envio_id": "017",
+        "almacen": "Almacén Málaga",
+        "fecha_envio": "2024-11-05",
+        "productos": [
+            {
+                "nombre": "Camiseta de algodón",
+                "descripcion": "Camiseta básica de algodón",
+                "precio": 19.99
+            },
+            {
+                "nombre": "Chaleco acolchado",
+                "descripcion": "Chaleco ligero para el frío",
+                "precio": 59.99
+            }
+        ]
+    },
+    {
+        "envio_id": "018",
+        "almacen": "Almacén Central Madrid",
+        "fecha_envio": "2024-11-12",
+        "productos": [
+            {
+                "nombre": "Cangurera",
+                "descripcion": "Cangurera para actividades al aire libre",
+                "precio": 34.99
+            },
+            {
+                "nombre": "Botas de montaña",
+                "descripcion": "Botas resistentes para trekking",
+                "precio": 109.99
+            }
+        ]
+    },
+    {
+        "envio_id": "019",
+        "almacen": "Almacén Valencia",
+        "fecha_envio": "2024-12-02",
+        "productos": [
+            {
+                "nombre": "Sombrero de paja",
+                "descripcion": "Sombrero ligero para el verano",
+                "precio": 24.99
+            },
+            {
+                "nombre": "Bañador",
+                "descripcion": "Bañador de secado rápido",
+                "precio": 29.99
+            }
+        ]
+    },
+    {
+        "envio_id": "020",
+        "almacen": "Almacén Principal Barcelona",
+        "fecha_envio": "2024-12-22",
+        "productos": [
+            {
+                "nombre": "Camiseta térmica",
+                "descripcion": "Camiseta ideal para el invierno",
+                "precio": 39.99
+            },
+            {
+                "nombre": "Chaqueta de plumas",
+                "descripcion": "Chaqueta ligera para el frío",
+                "precio": 159.99
+            }
+        ]
     }
 ]

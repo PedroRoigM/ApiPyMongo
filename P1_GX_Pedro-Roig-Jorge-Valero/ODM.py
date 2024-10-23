@@ -12,6 +12,7 @@ import yaml
 from pymongo.collection import Collection
 from pymongo import command_cursor
 import json
+from datetime import datetime
 import unicodedata
 
 def getLocationPoint(address: str) -> Point:
@@ -121,6 +122,7 @@ class Model:
         if self.indexes: ## Si hay índices
             while self.indexes: ## Mientras haya índices
                 self.db.create_index(self.indexes.pop(), unique=True) ## Creo un índice único en la base de datos
+        
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -152,6 +154,7 @@ class Model:
         #TODO
         ## insert_one si no tiene _id
         if 'direccion' in self.__dict__:
+            self.db.create_index([("location", pymongo.GEOSPHERE)])
             point = getLocationPoint(self.__dict__['direccion'])
             if point:
                 self.__dict__['location'] = {
@@ -395,6 +398,15 @@ if __name__ == '__main__':
         foundModel.edad = 22
         # Guardar
         foundModel.save()
+    else:
+        print("Cliente no encontrado")
+        
+    # Obtener primer documento
+    for modelo in Compra.find({}): # type: ignore
+        firstDocument = modelo
+        break
+    if firstDocument:
+        print(type(firstDocument.__dict__["fecha_compra"]))
     else:
         print("Cliente no encontrado")
     # PROYECTO 2
