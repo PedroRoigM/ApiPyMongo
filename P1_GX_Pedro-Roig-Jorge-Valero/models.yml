@@ -36,6 +36,7 @@ Proveedor:
     - telefono
     - direccion
     - productos_ofrecidos
+    - facturacion
   indexes:
     - email
 
