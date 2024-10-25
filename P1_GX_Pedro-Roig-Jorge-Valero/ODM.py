@@ -122,7 +122,13 @@ class Model:
         if self.indexes: ## Si hay índices
             while self.indexes: ## Mientras haya índices
                 self.db.create_index(self.indexes.pop(), unique=True) ## Creo un índice único en la base de datos
-        
+        for key, value in kwargs.items():
+            if 'fecha' in key and isinstance(value, str):
+                try:
+                    kwargs[key] = datetime.strptime(value, '%Y-%m-%d')
+                except ValueError:
+                    errorFunction(f"Formato de fecha incorrecto para {key}: {value}")
+                    return
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
