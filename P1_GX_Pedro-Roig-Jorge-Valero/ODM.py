@@ -14,6 +14,7 @@ from pymongo import command_cursor
 import json
 from datetime import datetime
 import unicodedata
+import redis
 
 def getLocationPoint(address: str) -> Point:
     """ 
@@ -47,6 +48,7 @@ def getLocationPoint(address: str) -> Point:
     
 def errorFunction(msg: str):
     print(f"Error: {msg}")
+
 class Model:
     """ 
     Clase de modelo abstracta
@@ -61,6 +63,8 @@ class Model:
             conjunto de variables admitidas por el modelo
         db : pymongo.collection.Collection
             conexion a la coleccion de la base de datos
+        global_cache : redis.Redis
+            conexion a la cache global
     
     Methods
     -------
@@ -88,6 +92,7 @@ class Model:
     admissible_vars: set[str]
     indexes: set[str] ## Para crear los indices en la base de datos
     db: pymongo.collection.Collection
+    global_cache: redis.Redis
 
     """Cantidad de argumentos indefinidos: diccionario de string, string | string, diccionario | string, lista"""
     def __init__(self, **kwargs: dict[str, str | dict | list]):
@@ -129,6 +134,7 @@ class Model:
                 except ValueError:
                     errorFunction(f"Formato de fecha incorrecto para {key}: {value}")
                     return
+        
         self.__dict__.update(kwargs) #para actualizar todos los valores de golpe
 
     def __setattr__(self, name: str, value: str | dict) -> None:
@@ -158,16 +164,16 @@ class Model:
         modelo.
         """
         #TODO
+        # if 'direccion' in self.__dict__:
+        #     self.db.create_index([("location", pymongo.GEOSPHERE)])
+        #     point = getLocationPoint(self.__dict__['direccion'])
+        #     if point:
+        #         self.__dict__['location'] = {
+        #             'type': 'Point',
+        #             'coordinates': list(point['coordinates'])
+        #         }
+
         ## insert_one si no tiene _id
-        if 'direccion' in self.__dict__:
-            self.db.create_index([("location", pymongo.GEOSPHERE)])
-            point = getLocationPoint(self.__dict__['direccion'])
-            if point:
-                self.__dict__['location'] = {
-                    'type': 'Point',
-                    'coordinates': list(point['coordinates'])
-                }
-        
         if '_id' not in self.__dict__:
             self.db.insert_one(self.__dict__)
         else:
@@ -179,13 +185,27 @@ class Model:
                 update_msg = self.db.update_one({'_id': self._id}, { "$set": newValues})
                 print(f"Acknowledged: {update_msg.acknowledged}")
                 self.__dict__.pop('flags') ## Elimino la variable flags ya que ya se han actualizado las variables
+
+        ## SE ACTUALIZA LA CACHE PARA ESTE VALOR ##
+        copy = self.__dict__.copy()
+            
+        del copy['_id']
+        ## GUARDA EN REDIS ##
+        for key  in copy.keys():
+            if 'fecha' in key:
+                copy[key] = str(copy[key])
+        self.global_cache.set(str(self.__dict__["_id"]), json.dumps(copy), ex=86400)
+            
     def delete(self) -> None:
         """
         Elimina el modelo de la base de datos
         """
         #TODO
+        ## SE ACTUALIZA LA CACHE PARA ESTE VALOR ##
+        if self.global_cache.exists(str(self.__dict__['_id'])):
+            self.global_cache.delete(str(self.__dict__['_id']))
         self.db.delete_one({"_id" : self._id})
-    
+
     @classmethod
     def find(cls, filter: dict[str, str | dict]) -> Any:
         """ 
@@ -203,6 +223,9 @@ class Model:
                 cursor de modelos
         """ 
         #TODO
+        ## SE ACTUALIZA LA CACHE PARA ESTE VALOR ##
+        # Si no está en cache, buscar en MongoDB y guardar en cache
+        
         return ModelCursor(cls, cls.db.find(filter)) ## Devuelvo un cursor de modelos ModelCursor
 
     @classmethod
@@ -222,6 +245,22 @@ class Model:
             pymongo.command_cursor.CommandCursor
                 cursor de pymongo con el resultado de la consulta
         """ 
+        ## SE ACTUALIZA LA CACHE PARA ESTE VALOR ##
+        # Si no está en cache, buscar en MongoDB y guardar en cache
+        document = cls.db.find_one({"_id": id})
+        cached_model = cls.global_cache.get(str(document._id))
+        if cached_model:
+            cls.global_cache.expire(str(document._id), 86400)
+        else:
+            copy = document.__dict__.copy()
+            
+            del copy['_id']
+            ## GUARDA EN REDIS ##
+            for key  in copy.keys():
+                if 'fecha' in key:
+                    copy[key] = str(copy[key])
+            document.global_cache.set(str(document.__dict__["_id"]), json.dumps(copy), ex=86400)
+
         return cls.db.aggregate(pipeline)
     
     @classmethod
@@ -241,10 +280,20 @@ class Model:
                 Modelo del documento encontrado o None si no se encuentra
         """ 
         #TODO
-        pass
+        cached_model = cls.global_cache.get(id)
+        if cached_model:
+            cls.global_cache.expire(id, 86400)
+            return cls(**json.loads(cached_model))
+        
+        # Si no está en cache, buscar en MongoDB y guardar en cache
+        document = cls.db.find_one({"_id": id})
+        if document:
+            cls.global_cache.set(id, json.dumps(document), ex=86400)
+            return cls(**document)
+        return None
 
     @classmethod
-    def init_class(cls, db_collection: pymongo.collection.Collection, required_vars: set[str], admissible_vars: set[str], indexes: set[str]) -> None:
+    def init_class(cls, db_collection: pymongo.collection.Collection, global_cache: redis.Redis, required_vars: set[str], admissible_vars: set[str], indexes: set[str]) -> None:
         """ 
         Inicializa las variables de clase en la inicializacion del sistema.
         En principio nada que hacer aqui salvo que se quieran realizar
@@ -263,6 +312,7 @@ class Model:
         cls.required_vars = required_vars
         cls.admissible_vars = admissible_vars
         cls.indexes = indexes
+        cls.global_cache = global_cache
 
 class ModelCursor:
     """ 
@@ -299,9 +349,9 @@ class ModelCursor:
         #TODO
         while self.cursor.alive:  # Comprueba si el cursor sigue teniendo elementos
             try:
-                # Obtiene el siguiente documento del cursor y lo convierte a un objeto modelo
+                # Obtiene el siguiente documento del cursor y lo convierte a un objeto Model
                 document = next(self.cursor)
-                # Convierte el documento en un objeto de modelo y lo devuelve
+                # Convierte el documento en un objeto de Model y lo devuelve
                 yield self.model(**document)
             except StopIteration:
                 # Si no hay más documentos, sale del bucle
@@ -313,20 +363,26 @@ def initApp(definitions_path: str = "models.yml", mongodb_uri="mongodb://localho
     #TODO
     # Inicializar base de datos
     cliente = pymongo.MongoClient(mongodb_uri) ## Inicializo el cliente de MongoDB
+    
     db = cliente[db_name] ## Inicializo la base de datos
     
+    print("Conectando con la caché")
+    cache = redis.Redis(host='localhost', port=6379, db=0)
+    cache.flushall()
+    print("Conexión establecida con la caché")
     with open(definitions_path, 'r') as modelos: ## Abro el archivo yml con los modelos
         doc=yaml.safe_load(modelos)
     
     #TODO
     for name, vars in doc.items(): ## Recorro los modelos
+        db[name].delete_many({}) ## Borro los datos de la colección
         ext_globals[name] = type(name, (Model,), {}) ## Inicializo una clase global con el nombre del modelo
         ext_globals[name].init_class(db_collection=db[name], 
+                            global_cache=cache,
                             required_vars=set(vars.get("required_vars", [])),
                             admissible_vars=set(vars.get("admissible_vars", [])),
                             indexes=set(vars.get("indexes", []))
                             ) ## Inicializo la clase con los valores del yml
-
         
     print("Clases instanciadas")
 
@@ -361,6 +417,7 @@ def initData(): ## Inicializo los datos de los modelos
         for envio in data:
             newEnvio = Envio(**envio) #type: ignore
             newEnvio.save()
+            
 if __name__ == '__main__':
     initApp() ## Inicializo la aplicación
     
@@ -404,14 +461,16 @@ if __name__ == '__main__':
         foundModel.edad = 22
         # Guardar
         foundModel.save()
+        
+        # Encontrar el valor por su id en la caché:
+        print("Ahora encontraremos el modelo por su id en la caché")
+        foundModel = Cliente.find_by_id(str(foundModel._id)) # type: ignore
+        if foundModel:
+            print(foundModel.__dict__)
+        else:
+            print("Cliente no encontrado")
     else:
         print("Cliente no encontrado")
-        
-    # PROYECTO 2
-    # Ejecutar consultas Q1, Q2, etc. y mostrarlo
-    #TODO
-    #Ejemplo
-    #Q1_r = MiModelo.aggregate(Q1)
 
 
 
