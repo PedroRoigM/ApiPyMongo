@@ -125,8 +125,8 @@ class Model:
             return ## Salgo de la función
         
         if self.indexes: ## Si hay índices
-            while self.indexes: ## Mientras haya índices
-                self.db.create_index(self.indexes.pop(), unique=True) ## Creo un índice único en la base de datos
+            for index in self.indexes: ## Mientras haya índices
+                self.db.create_index(index, unique=True) ## Creo un índice único en la base de datos
         for key, value in kwargs.items():
             if 'fecha' in key and isinstance(value, str):
                 try:
