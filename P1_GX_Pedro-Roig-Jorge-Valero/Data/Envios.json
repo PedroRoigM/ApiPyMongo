@@ -5,14 +5,18 @@
         "fecha_envio": "2024-09-25",
         "productos": [
             {
+                "producto_id": "001-001",
                 "nombre": "Camiseta manga corta",
                 "descripcion": "Camiseta de algodón",
-                "precio": 19.99
+                "precio": 19.99,
+                "cantidad": 10
             },
             {
+                "producto_id": "001-002",
                 "nombre": "Pantalón vaquero",
                 "descripcion": "Pantalón de mezclilla",
-                "precio": 49.99
+                "precio": 49.99,
+                "cantidad": 5
             }
         ]
     },
@@ -22,14 +26,18 @@
         "fecha_envio": "2024-08-30",
         "productos": [
             {
+                "producto_id": "002-001",
                 "nombre": "Vestido de fiesta",
                 "descripcion": "Vestido largo de seda",
-                "precio": 89.99
+                "precio": 89.99,
+                "cantidad": 3
             },
             {
+                "producto_id": "002-002",
                 "nombre": "Chaqueta de cuero",
                 "descripcion": "Chaqueta de cuero genuino",
-                "precio": 199.99
+                "precio": 199.99,
+                "cantidad": 2
             }
         ]
     },
@@ -39,14 +47,18 @@
         "fecha_envio": "2024-07-15",
         "productos": [
             {
+                "producto_id": "003-001",
                 "nombre": "Blusa de seda",
                 "descripcion": "Blusa elegante de seda",
-                "precio": 59.99
+                "precio": 59.99,
+                "cantidad": 7
             },
             {
+                "producto_id": "003-002",
                 "nombre": "Camiseta manga corta elegante",
                 "descripcion": "Camiseta de seda para eventos",
-                "precio": 49.99
+                "precio": 49.99,
+                "cantidad": 4
             }
         ]
     },
@@ -56,14 +68,18 @@
         "fecha_envio": "2024-11-02",
         "productos": [
             {
+                "producto_id": "004-001",
                 "nombre": "Zapatos deportivos",
                 "descripcion": "Zapatillas para correr",
-                "precio": 79.99
+                "precio": 79.99,
+                "cantidad": 6
             },
             {
+                "producto_id": "004-002",
                 "nombre": "Camiseta manga corta deportiva",
                 "descripcion": "Camiseta técnica para correr",
-                "precio": 29.99
+                "precio": 29.99,
+                "cantidad": 8
             }
         ]
     },
@@ -73,14 +89,18 @@
         "fecha_envio": "2024-06-18",
         "productos": [
             {
+                "producto_id": "005-001",
                 "nombre": "Gorra de béisbol",
                 "descripcion": "Gorra ajustable",
-                "precio": 24.99
+                "precio": 24.99,
+                "cantidad": 12
             },
             {
+                "producto_id": "005-002",
                 "nombre": "Reloj de pulsera",
                 "descripcion": "Reloj analógico de acero",
-                "precio": 129.99
+                "precio": 129.99,
+                "cantidad": 4
             }
         ]
     },
@@ -90,14 +110,18 @@
         "fecha_envio": "2024-12-20",
         "productos": [
             {
+                "producto_id": "006-001",
                 "nombre": "Bolso de mano",
                 "descripcion": "Bolso de cuero sintético",
-                "precio": 45.99
+                "precio": 45.99,
+                "cantidad": 9
             },
             {
+                "producto_id": "006-002",
                 "nombre": "Chaqueta de cuero",
                 "descripcion": "Chaqueta de cuero genuino",
-                "precio": 199.99
+                "precio": 199.99,
+                "cantidad": 3
             }
         ]
     },
@@ -107,14 +131,18 @@
         "fecha_envio": "2024-09-15",
         "productos": [
             {
+                "producto_id": "007-001",
                 "nombre": "Camiseta de tirantes",
                 "descripcion": "Camiseta ligera para verano",
-                "precio": 15.99
+                "precio": 15.99,
+                "cantidad": 10
             },
             {
+                "producto_id": "007-002",
                 "nombre": "Pantalones cortos",
                 "descripcion": "Pantalones cortos de algodón",
-                "precio": 34.99
+                "precio": 34.99,
+                "cantidad": 6
             }
         ]
     },
@@ -124,14 +152,18 @@
         "fecha_envio": "2024-10-05",
         "productos": [
             {
+                "producto_id": "008-001",
                 "nombre": "Sudadera",
                 "descripcion": "Sudadera con capucha",
-                "precio": 39.99
+                "precio": 39.99,
+                "cantidad": 5
             },
             {
+                "producto_id": "008-002",
                 "nombre": "Zapatos de cuero",
                 "descripcion": "Zapatos elegantes de cuero",
-                "precio": 89.99
+                "precio": 89.99,
+                "cantidad": 3
             }
         ]
     },
@@ -141,14 +173,18 @@
         "fecha_envio": "2024-10-10",
         "productos": [
             {
+                "producto_id": "009-001",
                 "nombre": "Camiseta de deporte",
                 "descripcion": "Camiseta transpirable para deportes",
-                "precio": 24.99
+                "precio": 24.99,
+                "cantidad": 7
             },
             {
+                "producto_id": "009-002",
                 "nombre": "Pantalones de chándal",
                 "descripcion": "Pantalones cómodos de chándal",
-                "precio": 39.99
+                "precio": 39.99,
+                "cantidad": 4
             }
         ]
     },
@@ -158,14 +194,18 @@
         "fecha_envio": "2024-11-15",
         "productos": [
             {
+                "producto_id": "010-001",
                 "nombre": "Botines de cuero",
                 "descripcion": "Botines elegantes para invierno",
-                "precio": 129.99
+                "precio": 129.99,
+                "cantidad": 3
             },
             {
+                "producto_id": "010-002",
                 "nombre": "Bufanda de lana",
                 "descripcion": "Bufanda cálida de lana",
-                "precio": 34.99
+                "precio": 34.99,
+                "cantidad": 8
             }
         ]
     },
@@ -175,14 +215,18 @@
         "fecha_envio": "2024-11-20",
         "productos": [
             {
+                "producto_id": "011-001",
                 "nombre": "Camiseta de manga larga",
                 "descripcion": "Camiseta para el clima frío",
-                "precio": 29.99
+                "precio": 29.99,
+                "cantidad": 6
             },
             {
+                "producto_id": "011-002",
                 "nombre": "Chaqueta impermeable",
                 "descripcion": "Chaqueta para días lluviosos",
-                "precio": 79.99
+                "precio": 79.99,
+                "cantidad": 4
             }
         ]
     },
@@ -192,14 +236,18 @@
         "fecha_envio": "2024-12-01",
         "productos": [
             {
+                "producto_id": "012-001",
                 "nombre": "Guantes de cuero",
                 "descripcion": "Guantes elegantes para invierno",
-                "precio": 49.99
+                "precio": 49.99,
+                "cantidad": 5
             },
             {
+                "producto_id": "012-002",
                 "nombre": "Gorro de lana",
                 "descripcion": "Gorro cálido para invierno",
-                "precio": 19.99
+                "precio": 19.99,
+                "cantidad": 10
             }
         ]
     },
@@ -209,14 +257,18 @@
         "fecha_envio": "2024-12-15",
         "productos": [
             {
+                "producto_id": "013-001",
                 "nombre": "Camiseta de Navidad",
                 "descripcion": "Camiseta festiva para las fiestas",
-                "precio": 24.99
+                "precio": 24.99,
+                "cantidad": 8
             },
             {
+                "producto_id": "013-002",
                 "nombre": "Pantalones térmicos",
                 "descripcion": "Pantalones térmicos para el invierno",
-                "precio": 59.99
+                "precio": 59.99,
+                "cantidad": 5
             }
         ]
     },
@@ -226,14 +278,18 @@
         "fecha_envio": "2024-12-18",
         "productos": [
             {
+                "producto_id": "014-001",
                 "nombre": "Chaqueta de invierno",
                 "descripcion": "Chaqueta cálida para invierno",
-                "precio": 149.99
+                "precio": 149.99,
+                "cantidad": 3
             },
             {
+                "producto_id": "014-002",
                 "nombre": "Botas de nieve",
                 "descripcion": "Botas para la nieve",
-                "precio": 99.99
+                "precio": 99.99,
+                "cantidad": 4
             }
         ]
     },
@@ -243,14 +299,18 @@
         "fecha_envio": "2024-12-25",
         "productos": [
             {
+                "producto_id": "015-001",
                 "nombre": "Calcetines de lana",
                 "descripcion": "Calcetines cálidos para invierno",
-                "precio": 9.99
+                "precio": 9.99,
+                "cantidad": 15
             },
             {
+                "producto_id": "015-002",
                 "nombre": "Bufanda de invierno",
                 "descripcion": "Bufanda gruesa para el frío",
-                "precio": 29.99
+                "precio": 29.99,
+                "cantidad": 7
             }
         ]
     },
@@ -260,14 +320,18 @@
         "fecha_envio": "2024-11-30",
         "productos": [
             {
+                "producto_id": "016-001",
                 "nombre": "Zapatos de senderismo",
                 "descripcion": "Zapatos cómodos para el campo",
-                "precio": 89.99
+                "precio": 89.99,
+                "cantidad": 5
             },
             {
+                "producto_id": "016-002",
                 "nombre": "Gorra de protección solar",
                 "descripcion": "Gorra para días soleados",
-                "precio": 14.99
+                "precio": 14.99,
+                "cantidad": 10
             }
         ]
     },
@@ -277,14 +341,18 @@
         "fecha_envio": "2024-11-05",
         "productos": [
             {
+                "producto_id": "017-001",
                 "nombre": "Camiseta de algodón",
                 "descripcion": "Camiseta básica de algodón",
-                "precio": 19.99
+                "precio": 19.99,
+                "cantidad": 8
             },
             {
+                "producto_id": "017-002",
                 "nombre": "Chaleco acolchado",
                 "descripcion": "Chaleco ligero para el frío",
-                "precio": 59.99
+                "precio": 59.99,
+                "cantidad": 4
             }
         ]
     },
@@ -294,14 +362,18 @@
         "fecha_envio": "2024-11-12",
         "productos": [
             {
+                "producto_id": "018-001",
                 "nombre": "Cangurera",
                 "descripcion": "Cangurera para actividades al aire libre",
-                "precio": 34.99
+                "precio": 34.99,
+                "cantidad": 6
             },
             {
+                "producto_id": "018-002",
                 "nombre": "Botas de montaña",
                 "descripcion": "Botas resistentes para trekking",
-                "precio": 109.99
+                "precio": 109.99,
+                "cantidad": 3
             }
         ]
     },
@@ -311,14 +383,18 @@
         "fecha_envio": "2024-12-02",
         "productos": [
             {
+                "producto_id": "019-001",
                 "nombre": "Sombrero de paja",
                 "descripcion": "Sombrero ligero para el verano",
-                "precio": 24.99
+                "precio": 24.99,
+                "cantidad": 7
             },
             {
+                "producto_id": "019-002",
                 "nombre": "Bañador",
                 "descripcion": "Bañador de secado rápido",
-                "precio": 29.99
+                "precio": 29.99,
+                "cantidad": 5
             }
         ]
     },
@@ -328,14 +404,18 @@
         "fecha_envio": "2024-12-22",
         "productos": [
             {
+                "producto_id": "020-001",
                 "nombre": "Camiseta térmica",
                 "descripcion": "Camiseta ideal para el invierno",
-                "precio": 39.99
+                "precio": 39.99,
+                "cantidad": 6
             },
             {
+                "producto_id": "020-002",
                 "nombre": "Chaqueta de plumas",
                 "descripcion": "Chaqueta ligera para el frío",
-                "precio": 159.99
+                "precio": 159.99,
+                "cantidad": 3
             }
         ]
     }

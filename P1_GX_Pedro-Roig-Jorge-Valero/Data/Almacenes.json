@@ -1,5 +1,6 @@
 [
     {
+        "_id": "1",
         "nombre": "Almacén Central Madrid",
         "capacidad": 10000,
         "inventario": [
@@ -15,6 +16,7 @@
         "direccion": "Trafalgar Square, London"
     },
     {
+        "_id": "2",
         "nombre": "Almacén Principal Barcelona",
         "capacidad": 8000,
         "inventario": [
@@ -30,6 +32,7 @@
         "direccion": "The Shard, 32 London Bridge Street, London"
     },
     {
+        "_id": "3",
         "nombre": "Almacén Valencia",
         "capacidad": 6000,
         "inventario": [
@@ -45,6 +48,7 @@
         "direccion": "St. Paul’s Cathedral, London"
     },
     {
+        "_id": "4",
         "nombre": "Almacén Sevilla",
         "capacidad": 5000,
         "inventario": [
@@ -60,6 +64,7 @@
         "direccion": "Manchester Town Hall, Albert Square, Manchester"
     },
     {
+        "_id": "5",
         "nombre": "Almacén Bilbao",
         "capacidad": 4000,
         "inventario": [
@@ -75,6 +80,7 @@
         "direccion": "Big Ben, Westminster, London"
     },
     {
+        "_id": "6",
         "nombre": "Almacén Málaga",
         "capacidad": 3500,
         "inventario": [
@@ -90,6 +96,7 @@
         "direccion": "Stonehenge, Salisbury"
     },
     {
+        "_id": "7",
         "nombre": "Almacén Zaragoza",
         "capacidad": 3000,
         "inventario": [
@@ -105,6 +112,7 @@
         "direccion": "Victoria and Albert Museum, Cromwell Road, London"
     },
     {
+        "_id": "8",
         "nombre": "Almacén Murcia",
         "capacidad": 2800,
         "inventario": [
@@ -120,6 +128,7 @@
         "direccion": "Cardiff Castle, Castle St, Cardiff"
     },
     {
+        "_id": "9",
         "nombre": "Almacén Palma de Mallorca",
         "capacidad": 2500,
         "inventario": [
@@ -135,6 +144,7 @@
         "direccion": "Windsor Castle, Windsor"
     },
     {
+        "_id": "10",
         "nombre": "Almacén Las Palmas",
         "capacidad": 2200,
         "inventario": [

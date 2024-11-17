@@ -7,12 +7,12 @@
             {
                 "producto_id": "Camiseta manga corta",
                 "cantidad": 2,
-                "precio_unitario": 19.99
+                "precio": 19.99
             },
             {
                 "producto_id": "Pantalón vaquero",
                 "cantidad": 1,
-                "precio_unitario": 49.99
+                "precio": 49.99
             }
         ],
         "monto_total": 89.97,
@@ -27,7 +27,7 @@
             {
                 "producto_id": "Pantalón vaquero",
                 "cantidad": 2,
-                "precio_unitario": 49.99
+                "precio": 49.99
             }
         ],
         "monto_total": 99.98,
@@ -42,7 +42,7 @@
             {
                 "producto_id": "Vestido de fiesta",
                 "cantidad": 1,
-                "precio_unitario": 89.99
+                "precio": 89.99
             }
         ],
         "monto_total": 89.99,
@@ -57,7 +57,7 @@
             {
                 "producto_id": "Zapatos deportivos",
                 "cantidad": 1,
-                "precio_unitario": 79.99
+                "precio": 79.99
             },
             {
                 "producto_id": "Gorra de béisbol",

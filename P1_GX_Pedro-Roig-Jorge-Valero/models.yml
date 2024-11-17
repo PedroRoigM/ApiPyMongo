@@ -13,6 +13,29 @@ Cliente:
     - email
 
 Producto:
+  type: array
+  items:
+    type: object
+    properties:
+      nombre:
+        type: string
+      precio:
+        type: number
+      proveedor:
+        type: object
+        properties:
+          _id:
+            type: string
+          descripcion:
+            type: string
+          peso:
+            type: number
+          volumen:
+            type: number
+          categoria:
+            type: string
+          stock:
+            type: integer
   required_vars:
     - nombre
     - precio
@@ -55,6 +78,17 @@ Compra:
     - fecha_envio
   indexes:
     - compra_id
+  productos:
+    type: array
+    items:
+      type: object
+      properties:
+        producto_id:
+          type: string
+        cantidad:
+          type: integer
+        precio:
+          type: number
 
 Almacen:
   required_vars:
@@ -67,6 +101,15 @@ Almacen:
     - location
   indexes:
     - direccion
+  inventario:
+    type: array
+    items:
+      type: object
+      properties:
+        producto_id:
+          type: string
+        cantidad:
+          type: integer
 
 Envio:
   required_vars:
@@ -76,3 +119,12 @@ Envio:
     - productos
   indexes:
     - envio_id
+  productos:
+    type: array
+    items:
+      type: object
+      properties:
+        producto_id:
+          type: string
+        cantidad:
+          type: integer
